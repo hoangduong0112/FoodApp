@@ -12,6 +12,7 @@ com\hd\configs\HibernateConfig.class
 com\hd\service\ShopService.class
 com\hd\configs\DispatcherServletInit.class
 com\hd\controllers\HomeControllers.class
+.netbeans_automatic_build
 com\hd\service\impl\ShopServiceImpl.class
 com\hd\repository\impl\ShopcategoryRepositoryImpl.class
 com\hd\repository\ShopcategoryRepository.class

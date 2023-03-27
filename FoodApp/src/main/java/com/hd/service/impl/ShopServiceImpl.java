@@ -4,10 +4,21 @@
  */
 package com.hd.service.impl;
 
+import com.hd.pojo.Shop;
+import com.hd.service.ShopService;
+import java.util.List;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Duong Hoang
  */
-public class ShopServiceImpl {
+@Service
+public class ShopServiceImpl implements ShopService{
+
+    @Override
+    public List<Shop> getShops() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

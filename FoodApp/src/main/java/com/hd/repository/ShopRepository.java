@@ -6,11 +6,12 @@ package com.hd.repository;
 
 import com.hd.pojo.Shop;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Duong Hoang
  */
 public interface ShopRepository {
-    List<Shop> getShopes();
+    List<Shop> getShopes(Map<String, String> params);
 }
