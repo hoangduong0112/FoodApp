@@ -4,9 +4,11 @@
  */
 package com.hd.controllers;
 
-import com.hd.pojo.Phanloai;
+import com.hd.pojo.Shopcategory;
+import com.hd.service.ShopcategoryService;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomeControllers {
+    @Autowired
+    private ShopcategoryService shopcategoryService;
     @RequestMapping("/")
     public String index(Model model){
-        List<Phanloai> p = new ArrayList<>();
-        p.add(new Phanloai(1, "a"));
-        p.add(new Phanloai(1, "a"));
-        p.add(new Phanloai(1, "a"));
+        List<Shopcategory> p = this.shopcategoryService.getShopcategories();
+        
         model.addAttribute("phanloai", p);
         return "index";
     }

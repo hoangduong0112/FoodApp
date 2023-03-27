@@ -12,10 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -25,13 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Duong Hoang
  */
 @Entity
-@Table(name = "phanloai")
+@Table(name = "shopcategory")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Phanloai.findAll", query = "SELECT p FROM Phanloai p"),
-    @NamedQuery(name = "Phanloai.findById", query = "SELECT p FROM Phanloai p WHERE p.id = :id"),
-    @NamedQuery(name = "Phanloai.findByTen", query = "SELECT p FROM Phanloai p WHERE p.ten = :ten")})
-public class Phanloai implements Serializable {
+    @NamedQuery(name = "Shopcategory.findAll", query = "SELECT s FROM Shopcategory s"),
+    @NamedQuery(name = "Shopcategory.findById", query = "SELECT s FROM Shopcategory s WHERE s.id = :id"),
+    @NamedQuery(name = "Shopcategory.findByName", query = "SELECT s FROM Shopcategory s WHERE s.name = :name")})
+public class Shopcategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,18 +40,24 @@ public class Phanloai implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 30)
-    @Column(name = "ten")
-    private String ten;
-    @ManyToMany(mappedBy = "phanloaiSet")
-    private Set<Cuahang> cuahangSet;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "name")
+    private String name;
+    @OneToMany(mappedBy = "categoryId")
+    private Set<Shop> shopSet;
 
-    public Phanloai() {
+    public Shopcategory() {
     }
 
-    public Phanloai(int id, String a) {
+    public Shopcategory(Integer id) {
         this.id = id;
-        this.ten = a;
+    }
+
+    public Shopcategory(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -61,21 +68,21 @@ public class Phanloai implements Serializable {
         this.id = id;
     }
 
-    public String getTen() {
-        return ten;
+    public String getName() {
+        return name;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @XmlTransient
-    public Set<Cuahang> getCuahangSet() {
-        return cuahangSet;
+    public Set<Shop> getShopSet() {
+        return shopSet;
     }
 
-    public void setCuahangSet(Set<Cuahang> cuahangSet) {
-        this.cuahangSet = cuahangSet;
+    public void setShopSet(Set<Shop> shopSet) {
+        this.shopSet = shopSet;
     }
 
     @Override
@@ -88,10 +95,10 @@ public class Phanloai implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Phanloai)) {
+        if (!(object instanceof Shopcategory)) {
             return false;
         }
-        Phanloai other = (Phanloai) object;
+        Shopcategory other = (Shopcategory) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +107,7 @@ public class Phanloai implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hd.pojo.Phanloai[ id=" + id + " ]";
+        return "com.hd.pojo.Shopcategory[ id=" + id + " ]";
     }
     
 }

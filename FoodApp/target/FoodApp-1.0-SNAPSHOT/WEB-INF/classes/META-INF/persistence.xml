@@ -6,6 +6,8 @@
     <class>com.hd.pojo.User</class>
     <class>com.hd.pojo.Phanloai</class>
     <class>com.hd.pojo.Cuahang</class>
+    <class>com.hd.pojo.Shop</class>
+    <class>com.hd.pojo.Shopcategory</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/foodapp?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
