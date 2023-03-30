@@ -4,9 +4,9 @@
  */
 package com.hd.service.impl;
 
-import com.hd.pojo.Shopcategory;
-import com.hd.repository.ShopcategoryRepository;
-import com.hd.service.ShopcategoryService;
+import com.hd.pojo.Category;
+import com.hd.repository.CategoryRepository;
+import com.hd.service.CategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +16,12 @@ import org.springframework.stereotype.Service;
  * @author Duong Hoang
  */
 @Service
-public class ShopcategoryServiceImpl implements ShopcategoryService{
-
+public class CategoryServiceImpl implements CategoryService{
     @Autowired
-    private ShopcategoryRepository shopcategoryRepository;
+    private CategoryRepository categoryRepository;
     @Override
-    public List<Shopcategory> getShopcategories() {
-        return this.shopcategoryRepository.getShopcategories();
+    public List<Category> getCategories() {
+        return this.categoryRepository.getCategories();
     }
-    
+
 }

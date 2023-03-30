@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,13 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Duong Hoang
  */
 @Entity
-@Table(name = "shopcategory")
+@Table(name = "menu")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Shopcategory.findAll", query = "SELECT s FROM Shopcategory s"),
-    @NamedQuery(name = "Shopcategory.findById", query = "SELECT s FROM Shopcategory s WHERE s.id = :id"),
-    @NamedQuery(name = "Shopcategory.findByName", query = "SELECT s FROM Shopcategory s WHERE s.name = :name")})
-public class Shopcategory implements Serializable {
+    @NamedQuery(name = "Menu.findAll", query = "SELECT m FROM Menu m"),
+    @NamedQuery(name = "Menu.findById", query = "SELECT m FROM Menu m WHERE m.id = :id"),
+    @NamedQuery(name = "Menu.findByName", query = "SELECT m FROM Menu m WHERE m.name = :name")})
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,20 +44,23 @@ public class Shopcategory implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "categoryId")
-    private Set<Shop> shopSet;
+    @OneToMany(mappedBy = "menuId")
+    private Set<MenuItems> menuItemsSet;
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    @ManyToOne
+    private Store storeId;
 
-    public Shopcategory() {
+    public Menu() {
     }
 
-    public Shopcategory(Integer id) {
+    public Menu(Integer id) {
         this.id = id;
     }
 
-    public Shopcategory(Integer id, String name) {
+    public Menu(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -77,12 +82,20 @@ public class Shopcategory implements Serializable {
     }
 
     @XmlTransient
-    public Set<Shop> getShopSet() {
-        return shopSet;
+    public Set<MenuItems> getMenuItemsSet() {
+        return menuItemsSet;
     }
 
-    public void setShopSet(Set<Shop> shopSet) {
-        this.shopSet = shopSet;
+    public void setMenuItemsSet(Set<MenuItems> menuItemsSet) {
+        this.menuItemsSet = menuItemsSet;
+    }
+
+    public Store getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Store storeId) {
+        this.storeId = storeId;
     }
 
     @Override
@@ -95,10 +108,10 @@ public class Shopcategory implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Shopcategory)) {
+        if (!(object instanceof Menu)) {
             return false;
         }
-        Shopcategory other = (Shopcategory) object;
+        Menu other = (Menu) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -107,7 +120,7 @@ public class Shopcategory implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hd.pojo.Shopcategory[ id=" + id + " ]";
+        return "com.hd.pojo.Menu[ id=" + id + " ]";
     }
     
 }

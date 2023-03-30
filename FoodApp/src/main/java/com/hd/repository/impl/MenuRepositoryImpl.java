@@ -4,10 +4,13 @@
  */
 package com.hd.repository.impl;
 
-import com.hd.pojo.Shopcategory;
-import com.hd.repository.ShopcategoryRepository;
+import com.hd.pojo.Menu;
+import com.hd.repository.MenuRepository;
 import java.util.List;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -20,15 +23,20 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class ShopcategoryRepositoryImpl implements ShopcategoryRepository{
+public class MenuRepositoryImpl implements MenuRepository{
 
     @Autowired
     private LocalSessionFactoryBean factory;
     @Override
-    public List<Shopcategory> getShopcategories() {
+    public List<Menu> getMenuByStoreId(int id) {
         Session s = factory.getObject().getCurrentSession();
-        Query q = s.createQuery("From Shopcategory");
-        return q.getResultList();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Menu> q = b.createQuery(Menu.class);
+        Root root = q.from(Menu.class);
+        q.select(root).where(b.equal(root.get("storeId"), id));
+        Query query = s.createQuery(q);
+        List<Menu> menus= query.getResultList();
+        return menus;
     }
     
 }

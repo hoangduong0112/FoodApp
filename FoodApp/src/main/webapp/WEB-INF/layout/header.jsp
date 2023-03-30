@@ -6,7 +6,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <div class="container-fluid">
+    <div id="preloder">
+    <div class="loader"></div>
+</div>
     <div class="row bg-secondary py-2 px-xl-5">
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center">
@@ -44,9 +48,10 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <c:url value="/" var="action" />
+            <form action="${action}">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" class="form-control" name="kw" placeholder="Search for products">
                     <div class="input-group-append">
                         <span class="input-group-text bg-transparent text-primary">
                             <i class="fa fa-search"></i>
@@ -78,7 +83,10 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Phân loại</a>
                 <div class="dropdown-menu">
                     <c:forEach items="${phanloai}" var="c">
-                        <a href="#" class="dropdown-item">${c.name}</a>
+                        <c:url value="/" var="url">
+                            <c:param name="categoryId" value="${c.id}" />
+                        </c:url>
+                        <a href="${url}" class="dropdown-item">${c.name}</a>
                     </c:forEach>
                 </div>
             </div>
@@ -94,8 +102,8 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <div>
-                        <c:url value="/" var="action" />
-                        <a href="${action}" class="nav-item nav-link active">Home</a>
+                            <c:url value="/" var="action" />
+                            <a href="${action}" class="nav-item nav-link active">Home</a>
                         </div>
                         <a href="shop.html" class="nav-item nav-link">Shop</a>
                         <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
