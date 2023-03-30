@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Duong Hoang
+ * @author nhoxd
  */
 @Entity
 @Table(name = "menu")
@@ -47,7 +48,7 @@ public class Menu implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "menuId")
+    @OneToMany(mappedBy = "menuId", fetch = FetchType.EAGER)
     private Set<MenuItems> menuItemsSet;
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     @ManyToOne
@@ -122,5 +123,6 @@ public class Menu implements Serializable {
     public String toString() {
         return "com.hd.pojo.Menu[ id=" + id + " ]";
     }
+    
     
 }

@@ -4,6 +4,7 @@
     Author     : Duong Hoang
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="row px-xl-5 justify-content-center">
     <div class="col-lg-5 pb-5">
@@ -36,10 +37,20 @@
         </div>
     </div>
 </div>
-<div class="row px-xl-5 justify-content-center">
+        <div>
+<!--<div class="row px-xl-5 justify-content-center">
     
         <div class="col-lg-3">ss
         </div>
         <div class="col-lg-6 mb-5">ss
         </div>
-</div>
+</div>-->
+
+<c:forEach items="${menus}" var="menu">
+    <h2>${menu.name}</h2>
+    <ul>
+        <c:forEach items="${menuItemsList[loop.index - 1]}" var="menuItem">
+            <li>${menuItem.name} - ${menuItem.price}</li>
+        </c:forEach>
+    </ul>
+</c:forEach>
