@@ -67,5 +67,6 @@ public class StoreRepositoryImpl implements StoreRepository {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Store.class, id);
     }
+    
 
 }

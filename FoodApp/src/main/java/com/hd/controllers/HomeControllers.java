@@ -18,6 +18,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,11 +42,16 @@ public class HomeControllers {
     @Autowired
     private MenuItemsService menuItemsService;
 
+    @ModelAttribute
+    public void commonAttribute(Model model) {
+        List<Category> p = this.categoryService.getCategories();
+        model.addAttribute("phanloai", p);
+    }
+
     @RequestMapping(path = {"/", "/store"})
     public String index(Model model, @RequestParam Map<String, String> params) {
-        List<Category> p = this.categoryService.getCategories();
         List<Store> s = this.storeService.getStores(params);
-        model.addAttribute("phanloai", p);
+
         model.addAttribute("stores", s);
         return "index";
     }
@@ -53,6 +59,8 @@ public class HomeControllers {
     @RequestMapping(path = "/store/{storeId}")
     public String details(Model model, @PathVariable(value = "storeId") int id) {
         model.addAttribute("store", this.storeService.getStoreById(id));
+        String title = this.storeService.getName(id);
+        model.addAttribute("title", title);
         List<Menu> menus = this.menuService.getMenuByStoreId(id);
         List<List<MenuItems>> menuItemsList = new ArrayList<>();
         for (Menu menu : menus) {

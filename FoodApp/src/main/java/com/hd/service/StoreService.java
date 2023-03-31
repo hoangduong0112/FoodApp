@@ -15,4 +15,5 @@ import java.util.Map;
 public interface StoreService {
     List<Store> getStores(Map<String, String> params);
     Store getStoreById(int id);
+    String getName(int id);
 }

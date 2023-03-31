@@ -2,6 +2,7 @@ com\hd\pojo\Category_.class
 com\hd\service\MenuService.class
 com\hd\pojo\Store.class
 com\hd\pojo\Category.class
+com\hd\repository\impl\MenuItemsRepositoryImpl.class
 com\hd\configs\WebAppContextConfig.class
 com\hd\repository\MenuRepository.class
 com\hd\service\impl\StoreServiceImpl.class
@@ -19,8 +20,11 @@ com\hd\service\CategoryService.class
 com\hd\service\impl\MenuServiceImpl.class
 com\hd\service\impl\CategoryServiceImpl.class
 com\hd\pojo\Menu.class
+com\hd\repository\MenuItemsRepository.class
 com\hd\configs\HibernateConfig.class
+com\hd\service\MenuItemsService.class
 com\hd\controllers\HomeControllers.class
+com\hd\service\impl\MenuItemsServiceImpl.class
 com\hd\pojo\Menu_.class
 com\hd\service\StoreService.class
 com\hd\repository\impl\CategoryRepositorImpl.class

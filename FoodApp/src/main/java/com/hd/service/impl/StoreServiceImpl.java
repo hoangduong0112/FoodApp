@@ -31,5 +31,10 @@ public class StoreServiceImpl implements StoreService {
     public Store getStoreById(int id) {
         return this.storeRepository.getStoreById(id);
     }
+
+    @Override
+    public String getName(int id) {       
+        return this.storeRepository.getStoreById(id).getImage();
+    }
     
 }
