@@ -8,6 +8,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author nhoxd
+ * @author Duong Hoang
  */
 @Entity
 @Table(name = "user")
@@ -53,9 +55,10 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "avatar")
     private String avatar;
-    @Size(max = 45)
+    @Size(max = 7)
     @Column(name = "user_role")
-    private String userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
     @Column(name = "active")
     private Boolean active;
 
@@ -106,11 +109,11 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 
