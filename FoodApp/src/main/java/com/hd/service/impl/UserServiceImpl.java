@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.hd.configs;
+package com.hd.service.impl;
 
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+import com.hd.service.UserService;
 
 /**
  *
  * @author Duong Hoang
  */
-public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer{
+public class UserServiceImpl implements UserService{
     
 }

@@ -80,9 +80,9 @@
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block mx-auto my-2">
             <div class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Phân loại</a>
+                <a href="#" class="nav-link dropdown-toggle text-dark" data-toggle="dropdown">Phân loại</a>
                 <div class="dropdown-menu">
-                    <c:forEach items="${phanloai}" var="c">
+                    <c:forEach items="${categories}" var="c">
                         <c:url value="/" var="url">
                             <c:param name="categoryId" value="${c.id}" />
                         </c:url>
@@ -117,8 +117,10 @@
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="" class="nav-item nav-link">Login</a>
-                        <a href="" class="nav-item nav-link">Register</a>
+                        <c:url value="/login" var="login"/>
+                        <a href="${login}" class="nav-item nav-link">Login</a>
+                        <c:url value="/register" var="register"/>
+                        <a href="${register}" class="nav-item nav-link">Register</a>
                     </div>
                 </div>
             </nav>

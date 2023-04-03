@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author nhoxd
+ * @author Duong Hoang
  */
 @Entity
 @Table(name = "menu_items")
@@ -45,9 +45,10 @@ public class MenuItems implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "price")
-    private Float price;
+    private float price;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne
     private Menu menuId;
@@ -59,9 +60,10 @@ public class MenuItems implements Serializable {
         this.id = id;
     }
 
-    public MenuItems(Integer id, String name) {
+    public MenuItems(Integer id, String name, float price) {
         this.id = id;
         this.name = name;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -80,11 +82,11 @@ public class MenuItems implements Serializable {
         this.name = name;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

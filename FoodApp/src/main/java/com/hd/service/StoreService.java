@@ -13,7 +13,12 @@ import java.util.Map;
  * @author Duong Hoang
  */
 public interface StoreService {
+
     List<Store> getStores(Map<String, String> params);
+
     Store getStoreById(int id);
+
     String getName(int id);
+
+    boolean addOrUpdate(Store p);
 }

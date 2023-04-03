@@ -4,11 +4,16 @@
  */
 package com.hd.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.hd.pojo.Store;
 import com.hd.repository.StoreRepository;
 import com.hd.service.StoreService;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +24,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoreServiceImpl implements StoreService {
 
+    @Autowired
+    public Cloudinary cloudinary;
     @Autowired
     private StoreRepository storeRepository;
     
@@ -35,6 +42,21 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public String getName(int id) {       
         return this.storeRepository.getStoreById(id).getImage();
+    }
+
+    @Override
+    public boolean addOrUpdate(Store p) {
+
+        if(p.getFile() != null){
+            try {
+                Map res =this.cloudinary.uploader().upload(p.getFile().getBytes(), ObjectUtils.asMap("resource type", "auto"));
+                p.setImage(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(StoreServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return this.storeRepository.addOrUpdate(p); 
     }
     
 }

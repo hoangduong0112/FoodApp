@@ -10,6 +10,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  *
  * @author Duong Hoang
  */
-public interface UserService extends UserDetailsService{
-    
+public interface UserService{
 }

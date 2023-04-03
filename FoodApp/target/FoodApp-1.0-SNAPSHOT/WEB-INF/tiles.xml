@@ -23,15 +23,27 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/index.jsp" />
     </definition>
     <definition name="store-menu" extends="baseLayout">
-        <put-attribute name="title" value="Chi tiet" />
+        <put-attribute name="title" value="Cửa hàng" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/menu-detail.jsp" />
     </definition>
     
      <definition name="stores" extends="baseLayout">
-        <put-attribute name="title" value="test" />
+        <put-attribute name="title" value="Quản trị cửa hàng" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/menu-detail.jsp" />
+                       value="/WEB-INF/pages/stores.jsp" />
+    </definition>
+    
+    <definition name="login" extends="baseLayout">
+        <put-attribute name="title" value="Đăng nhập" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="Đăng ký" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/register.jsp" />
     </definition>
 </tiles-definitions>
 

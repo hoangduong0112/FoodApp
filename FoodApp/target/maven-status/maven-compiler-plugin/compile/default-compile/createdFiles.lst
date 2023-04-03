@@ -12,10 +12,13 @@ com\hd\repository\impl\MenuRepositoryImpl.class
 com\hd\pojo\MenuItems_.class
 com\hd\pojo\Store_.class
 com\hd\repository\impl\StoreRepositoryImpl.class
+com\hd\controllers\AdminController.class
 com\hd\pojo\MenuItems.class
 com\hd\pojo\User_.class
 com\hd\configs\TilesConfig.class
+com\hd\service\UserService.class
 com\hd\repository\CategoryRepository.class
+com\hd\controllers\HomeController.class
 com\hd\service\CategoryService.class
 com\hd\service\impl\MenuServiceImpl.class
 com\hd\service\impl\CategoryServiceImpl.class
@@ -23,9 +26,11 @@ com\hd\pojo\Menu.class
 com\hd\repository\MenuItemsRepository.class
 com\hd\configs\HibernateConfig.class
 com\hd\service\MenuItemsService.class
-com\hd\controllers\HomeControllers.class
+com\hd\repository\impl\UserRepositoryImpl.class
 com\hd\service\impl\MenuItemsServiceImpl.class
 com\hd\pojo\Menu_.class
+com\hd\formatter\CategoryFormatter.class
 com\hd\service\StoreService.class
+com\hd\repository\UserRepository.class
 com\hd\repository\impl\CategoryRepositorImpl.class
 com\hd\repository\StoreRepository.class
