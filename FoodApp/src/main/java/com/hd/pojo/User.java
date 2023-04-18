@@ -5,6 +5,7 @@
 package com.hd.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,7 +47,7 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "username")
     private String username;
-    @Size(max = 45)
+    @Size(max = 100)
     @Column(name = "password")
     private String password;
     @Size(max = 45)
@@ -53,11 +56,13 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "avatar")
     private String avatar;
-    @Size(max = 7)
+    @Size(max = 45)
     @Column(name = "user_role")
     private String userRole;
     @Column(name = "active")
     private Boolean active;
+    @OneToMany(mappedBy = "userId")
+    private Set<Store> storeSet;
 
     public User() {
     }
@@ -120,6 +125,15 @@ public class User implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    @XmlTransient
+    public Set<Store> getStoreSet() {
+        return storeSet;
+    }
+
+    public void setStoreSet(Set<Store> storeSet) {
+        this.storeSet = storeSet;
     }
 
     @Override

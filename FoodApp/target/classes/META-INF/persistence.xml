@@ -12,6 +12,9 @@
     <class>com.hd.pojo.Category</class>
     <class>com.hd.pojo.MenuItems</class>
     <class>com.hd.pojo.Menu</class>
+    <class>com.hd.pojo.Restaurant</class>
+    <class>com.hd.pojo.User_1</class>
+    <class>com.hd.pojo.Category_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/foodapp?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

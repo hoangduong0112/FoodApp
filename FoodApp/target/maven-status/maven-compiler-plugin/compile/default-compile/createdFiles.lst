@@ -1,9 +1,11 @@
 com\hd\pojo\Category_.class
 com\hd\service\MenuService.class
 com\hd\pojo\Store.class
+com\hd\configs\SecurityWebApplicationInitializer.class
 com\hd\pojo\Category.class
 com\hd\repository\impl\MenuItemsRepositoryImpl.class
 com\hd\configs\WebAppContextConfig.class
+com\hd\service\impl\UserServiceImpl.class
 com\hd\repository\MenuRepository.class
 com\hd\service\impl\StoreServiceImpl.class
 com\hd\pojo\User.class
@@ -32,5 +34,6 @@ com\hd\pojo\Menu_.class
 com\hd\formatter\CategoryFormatter.class
 com\hd\service\StoreService.class
 com\hd\repository\UserRepository.class
+com\hd\configs\SpringSecurityConfig.class
 com\hd\repository\impl\CategoryRepositorImpl.class
 com\hd\repository\StoreRepository.class

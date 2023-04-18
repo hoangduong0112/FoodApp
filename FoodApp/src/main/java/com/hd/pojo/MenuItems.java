@@ -45,10 +45,9 @@ public class MenuItems implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
-    private float price;
+    private Float price;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne
     private Menu menuId;
@@ -60,10 +59,9 @@ public class MenuItems implements Serializable {
         this.id = id;
     }
 
-    public MenuItems(Integer id, String name, float price) {
+    public MenuItems(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.price = price;
     }
 
     public Integer getId() {
@@ -82,11 +80,11 @@ public class MenuItems implements Serializable {
         this.name = name;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

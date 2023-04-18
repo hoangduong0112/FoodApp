@@ -4,14 +4,16 @@
     Author     : Duong Hoang
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="container">
   <div class="row" id="loginForm">
     <section class="offset-md-3 col-md-6">
 
       <div class="card shadow p-5">
-        <h3 class="text-center mb-3 font-time"> Welcome Back! </h3>
-        <form>
+        <h3 class="text-center mb-3 font-time"> Đăng nhập </h3>
+        <c:url value="/login" var="action" />
+            <form method="post" action="${action}">
 
           <div class="form-group">
             <input type="text" name="username" id="username" class="form-control rounded-pill" placeholder="Enter Your Username" />
@@ -28,7 +30,7 @@
             </div>
           </div>
 
-          <button class="btn btn-block btn-info rounded-pill" id="submit" onclick="return validate();">Login</button>
+          <button class="btn btn-block btn-info rounded-pill" id="submit">Login</button>
 
         </form>
         <hr>

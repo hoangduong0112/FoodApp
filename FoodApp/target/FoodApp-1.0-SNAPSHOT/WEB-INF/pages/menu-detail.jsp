@@ -40,8 +40,7 @@
 </div>
 <div class="row px-xl-5 justify-content-center">
     <div class="col-lg-5 pb-5">
-
-        <c:forEach items="${menus}" var="menu">
+<c:forEach items="${menus}" var="menu">
             <h2>${menu.name}</h2>
             <ul>
                 <c:forEach items="${menuItemsList}" var="items">
@@ -53,6 +52,7 @@
                     </c:forEach>
             </ul>
         </c:forEach>
+
     </div>
     <div class="col-lg-5 pb-5">
         <c:forEach items="${menus}" var="menu">

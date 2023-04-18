@@ -4,11 +4,13 @@
  */
 package com.hd.service;
 
+import com.hd.pojo.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  *
  * @author Duong Hoang
  */
-public interface UserService{
+public interface UserService extends UserDetailsService {
+     public User getUserByUsername(String username);
 }

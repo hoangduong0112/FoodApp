@@ -68,9 +68,11 @@ public class Store implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private Category categoryId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private User userId;
     @OneToMany(mappedBy = "storeId")
     private Set<Menu> menuSet;
-
     @Transient
     private MultipartFile file;
 
@@ -134,6 +136,14 @@ public class Store implements Serializable {
 
     public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @XmlTransient

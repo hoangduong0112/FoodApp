@@ -8,6 +8,7 @@ import com.hd.pojo.Category;
 import com.hd.pojo.Menu;
 import com.hd.pojo.MenuItems;
 import com.hd.pojo.Store;
+import com.hd.pojo.User;
 import com.hd.service.CategoryService;
 import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,8 +63,7 @@ public class HomeController {
     @RequestMapping(path = "/store/{storeId}")
     public String details(Model model, @PathVariable(value = "storeId") int id) {
         model.addAttribute("store", this.storeService.getStoreById(id));
-        String title = this.storeService.getName(id);
-        model.addAttribute("title", title);
+
         List<Menu> menus = this.menuService.getMenuByStoreId(id);
         List<List<MenuItems>> menuItemsList = new ArrayList<>();
         for (Menu menu : menus) {
@@ -72,10 +73,15 @@ public class HomeController {
         model.addAttribute("menuItemsList", menuItemsList);
         return "store-menu";
     }
-    
+
     @RequestMapping(path = "/login")
-    public String login(){
+    public String showLogin() {
         return "login";
     }
-    
+
+    @GetMapping("/register")
+    public String showRegister(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
 }

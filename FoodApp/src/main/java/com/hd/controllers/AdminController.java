@@ -38,6 +38,7 @@ public class AdminController {
 
     @GetMapping("/stores")
     public String stores(Model model) {
+        model.addAttribute("stores", this.storeService.getStores(null));
         model.addAttribute("store", new Store());
         return "stores";
     }

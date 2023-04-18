@@ -46,3 +46,29 @@
         <input type="submit" value="Tạo Cửa hàng" class="btn btn-danger"/>
     </div>
 </form:form>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Ten</th>
+        <th>Cate</th>
+        <th></th>
+    </tr>
+    <c:forEach items="${stores}" var="s">
+        <tr id="store${s.id}">
+            <td>
+                <img src="${s.image}" width="180" />
+            </td>
+            <td>${s.id}</td>
+            <td>${s.name}</td>
+            <td>${s.categoryId.name}</td>
+            <td>
+                <c:url value="/api/products/${s.id}" var="endpoint" />
+                <input  type="button" onclick="deleteProduct('${endpoint}', ${s.id})" value="Xóa" class="btn btn-danger" />
+                <a href="<c:url value="/admin/products/${s.id}" />" class="btn btn-info">Cập nhật</a>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+

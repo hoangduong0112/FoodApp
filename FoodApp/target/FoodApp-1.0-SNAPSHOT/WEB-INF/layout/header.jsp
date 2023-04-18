@@ -9,8 +9,8 @@
 
 <div class="container-fluid">
     <div id="preloder">
-    <div class="loader"></div>
-</div>
+        <div class="loader"></div>
+    </div>
     <div class="row bg-secondary py-2 px-xl-5">
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center">
@@ -117,10 +117,18 @@
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <c:url value="/login" var="login"/>
-                        <a href="${login}" class="nav-item nav-link">Login</a>
-                        <c:url value="/register" var="register"/>
-                        <a href="${register}" class="nav-item nav-link">Register</a>
+                        <c:choose>
+                            <c:when test="${pageContext.request.userPrincipal.name == null}">
+                                <c:url value="/login" var="login"/>
+                                <a href="${login}" class="nav-item nav-link">Login</a>
+                                <c:url value="/register" var="register"/>
+                                <a href="${register}" class="nav-item nav-link">Register</a>
+                            </c:when>
+                            <c:when test="${pageContext.request.userPrincipal.name != null}">
+                                <a href="#" class="nav-item nav-link">Hello, ${pageContext.request.userPrincipal.name}</a>
+                                <a href="<c:url value="/logout" />" class="nav-item nav-link">Log out</a>
+                            </c:when>
+                        </c:choose>                   
                     </div>
                 </div>
             </nav>

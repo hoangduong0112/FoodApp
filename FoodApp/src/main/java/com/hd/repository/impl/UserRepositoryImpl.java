@@ -15,26 +15,29 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Duong Hoang
  */
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public User getUser(String username) {
-        Session s = this.factory.getObject().getCurrentSession();
+    @Transactional
+    public User getUserByUsername(String username) {
+        Session s = factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<User> q = b.createQuery(User.class);
         Root root = q.from(User.class);
         q.select(root);
-        
+
         q.where(b.equal(root.get("username"), username));
-        
+
         Query query = s.createQuery(q);
         return (User) query.getSingleResult();
     }

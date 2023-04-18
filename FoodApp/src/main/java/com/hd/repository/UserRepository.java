@@ -11,5 +11,6 @@ import com.hd.pojo.User;
  * @author Duong Hoang
  */
 public interface UserRepository {
-    User getUser(String username);
+
+    User getUserByUsername(String username);
 }
