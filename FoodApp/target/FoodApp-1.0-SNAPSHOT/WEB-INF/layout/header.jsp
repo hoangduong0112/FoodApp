@@ -79,17 +79,15 @@
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block mx-auto my-2">
-            <div class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle text-dark" data-toggle="dropdown">Phân loại</a>
-                <div class="dropdown-menu">
-                    <c:forEach items="${categories}" var="c">
-                        <c:url value="/" var="url">
-                            <c:param name="categoryId" value="${c.id}" />
-                        </c:url>
-                        <a href="${url}" class="dropdown-item">${c.name}</a>
-                    </c:forEach>
-                </div>
-            </div>
+            <c:choose>
+                <c:when test="${pageContext.request.userPrincipal.name == null}">
+                    <a href="#" class="nav-item nav-link text-danger">Trở thành đối tác</a>
+                </c:when>
+                <c:when test="${pageContext.request.userPrincipal.name != null}">
+                    <c:url value="/partner/" var="partner"/>
+                    <a href="${partner}" class="nav-item nav-link text-dark">Quản lý cửa hàng</a>
+                </c:when>
+            </c:choose>    
         </div>
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
@@ -105,16 +103,12 @@
                             <c:url value="/" var="action" />
                             <a href="${action}" class="nav-item nav-link active">Home</a>
                         </div>
-                        <a href="shop.html" class="nav-item nav-link">Shop</a>
-                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <c:forEach items="${categories}" var="c">
+                            <c:url value="/" var="url">
+                                <c:param name="categoryId" value="${c.id}" />
+                            </c:url>
+                            <a href="${url}" class="nav-item nav-link">${c.name}</a>
+                        </c:forEach>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <c:choose>

@@ -21,4 +21,8 @@ public interface StoreService {
     String getName(int id);
 
     boolean addOrUpdate(Store p);
+    
+    Store getStoreByUserId(int id);
+    
+    
 }

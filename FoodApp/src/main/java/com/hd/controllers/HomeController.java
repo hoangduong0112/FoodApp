@@ -67,7 +67,7 @@ public class HomeController {
         List<Menu> menus = this.menuService.getMenuByStoreId(id);
         List<List<MenuItems>> menuItemsList = new ArrayList<>();
         for (Menu menu : menus) {
-            menuItemsList.add(new ArrayList<>(menu.getMenuItemsSet()));
+            menuItemsList.add(new ArrayList<>(this.menuItemsService.getMenuItemsByMenuId(menu.getId())));
         }
         model.addAttribute("menus", menus);
         model.addAttribute("menuItemsList", menuItemsList);

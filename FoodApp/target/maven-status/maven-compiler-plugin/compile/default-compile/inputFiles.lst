@@ -16,6 +16,7 @@ D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\configs\DispatcherServletInit.j
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\CategoryRepository.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\configs\WebAppContextConfig.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\pojo\Menu.java
+D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\controllers\ApiStoreController.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\service\UserService.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\service\impl\UserServiceImpl.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\controllers\AdminController.java
@@ -25,6 +26,7 @@ D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\StoreRepository.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\service\CategoryService.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\service\impl\StoreServiceImpl.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\MenuItemsRepository.java
+D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\controllers\PartnerController.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\impl\MenuItemsRepositoryImpl.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\configs\TilesConfig.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\service\impl\MenuServiceImpl.java

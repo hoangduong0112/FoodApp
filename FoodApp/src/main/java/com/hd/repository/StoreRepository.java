@@ -16,4 +16,5 @@ public interface StoreRepository {
     List<Store> getStores(Map<String, String> params);
     Store getStoreById(int id);
     boolean addOrUpdate(Store p);
+    Store getStoreByUserId(int id);
 }

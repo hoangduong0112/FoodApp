@@ -58,5 +58,10 @@ public class StoreServiceImpl implements StoreService {
         
         return this.storeRepository.addOrUpdate(p); 
     }
+
+    @Override
+    public Store getStoreByUserId(int i) {
+        return this.storeRepository.getStoreByUserId(i);
+    }
     
 }

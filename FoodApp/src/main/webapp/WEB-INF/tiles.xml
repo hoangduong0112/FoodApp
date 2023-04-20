@@ -17,6 +17,17 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="footer"
                        value="/WEB-INF/layout/footer.jsp" />
     </definition>
+        <definition name="baseAdminLayout"
+                template="/WEB-INF/layout/adminBase.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="AdminSidebar"
+                       value="/WEB-INF/layout/adminSidebar.jsp" />
+        <put-attribute name="AdminHeader"
+                       value="/WEB-INF/layout/adminHeader.jsp" />
+        <put-attribute name="AdminContent" value="" />
+        <put-attribute name="AdminFooter"
+                       value="/WEB-INF/layout/adminFooter.jsp" />
+    </definition>
     <definition name="index" extends="baseLayout">
         <put-attribute name="title" value="Trang chủ" />
         <put-attribute name="content"
@@ -28,9 +39,9 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/menu-detail.jsp" />
     </definition>
     
-     <definition name="stores" extends="baseLayout">
+     <definition name="stores" extends="baseAdminLayout">
         <put-attribute name="title" value="Quản trị cửa hàng" />
-        <put-attribute name="content"
+        <put-attribute name="AdminContent"
                        value="/WEB-INF/pages/stores.jsp" />
     </definition>
     
@@ -45,5 +56,12 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content"
                        value="/WEB-INF/pages/register.jsp" />
     </definition>
+    
+    <definition name="my-store" extends="baseAdminLayout">
+        <put-attribute name="title" value="Cửa hàng của tôi" />
+        <put-attribute name="AdminContent"
+                       value="/WEB-INF/pages/my-store.jsp" />
+    </definition>
+    
 </tiles-definitions>
 

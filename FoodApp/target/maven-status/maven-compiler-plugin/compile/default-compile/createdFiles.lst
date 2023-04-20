@@ -1,3 +1,4 @@
+com\hd\controllers\PartnerController.class
 com\hd\pojo\Category_.class
 com\hd\service\MenuService.class
 com\hd\pojo\Store.class
@@ -19,6 +20,7 @@ com\hd\pojo\MenuItems.class
 com\hd\pojo\User_.class
 com\hd\configs\TilesConfig.class
 com\hd\service\UserService.class
+com\hd\controllers\ApiStoreController.class
 com\hd\repository\CategoryRepository.class
 com\hd\controllers\HomeController.class
 com\hd\service\CategoryService.class

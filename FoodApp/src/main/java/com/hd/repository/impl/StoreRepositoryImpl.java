@@ -72,13 +72,23 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     public boolean addOrUpdate(Store p) {
         Session s = this.factory.getObject().getCurrentSession();
-        try{
+        try {
             s.save(p);
             return true;
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             return false;
         }
     }
-    
+
+    @Override
+    public Store getStoreByUserId(int id) {
+        Session s = factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Store> q = b.createQuery(Store.class);
+        Root root = q.from(Store.class);
+        q.select(root).where(b.equal(root.get("userId"), id));
+        Query query = s.createQuery(q);
+        return (Store) query.getSingleResult();
+    }
 
 }

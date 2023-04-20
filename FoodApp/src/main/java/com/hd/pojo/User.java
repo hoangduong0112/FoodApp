@@ -5,6 +5,7 @@
 package com.hd.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -35,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByHoten", query = "SELECT u FROM User u WHERE u.hoten = :hoten"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
-    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
+    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
+    @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +65,9 @@ public class User implements Serializable {
     private String userRole;
     @Column(name = "active")
     private Boolean active;
+    @Column(name = "last_login")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLogin;
     @OneToMany(mappedBy = "userId")
     private Set<Store> storeSet;
 
@@ -125,6 +132,14 @@ public class User implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     @XmlTransient

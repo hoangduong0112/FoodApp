@@ -9,8 +9,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
-        <h2 class="font-weight-semi-bold text-uppercase mb-3">Contact Us</h1>
+    <div class="d-flex flex-column align-items-center justify-content-center text-dark" style="min-height: 100px">
+        <h2 class="font-weight-semi-bold text-uppercase mb-3">List of stores</h1>
     </div>
 </div>
 <c:if test="${errMsg != null}">
@@ -47,28 +47,41 @@
     </div>
 </form:form>
 
-<table class="table">
-    <tr>
-        <th></th>
-        <th>Id</th>
-        <th>Ten</th>
-        <th>Cate</th>
-        <th></th>
-    </tr>
-    <c:forEach items="${stores}" var="s">
-        <tr id="store${s.id}">
-            <td>
-                <img src="${s.image}" width="180" />
-            </td>
-            <td>${s.id}</td>
-            <td>${s.name}</td>
-            <td>${s.categoryId.name}</td>
-            <td>
-                <c:url value="/api/products/${s.id}" var="endpoint" />
-                <input  type="button" onclick="deleteProduct('${endpoint}', ${s.id})" value="Xóa" class="btn btn-danger" />
-                <a href="<c:url value="/admin/products/${s.id}" />" class="btn btn-info">Cập nhật</a>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Danh sách cửa hàng</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr id="store${s.id}">
+                        <th scope="col">id</th>
+                        <th scope="col">tên</th>
+                        <th scope="col">image</th>
+                        <th scope="col">cate</th>
+                        <th scope="col">user</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${stores}" var="s">
+                        <tr>
+                            <th scope="row">${s.id}</th>
+                            <td>${s.name}</td>
+                            <td>
+                                <img src="${s.image}" width="90" />
+                            </td>
+                            <td>${s.categoryId.name}</td>
+                            <td>${s.userId.username}</td>
+                            <td>
+                                <c:url value="/api/products/${s.id}" var="endpoint" />
+                                <input  type="button" onclick="deleteProduct('${endpoint}', ${s.id})" value="Xóa" class="btn btn-sm btn-danger" />
+                                <a href="<c:url value="/admin/products/${s.id}" />" class="btn btn-sm btn-primary">Cập nhật</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
