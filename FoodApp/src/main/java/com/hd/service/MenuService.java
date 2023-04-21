@@ -12,5 +12,10 @@ import java.util.List;
  * @author Duong Hoang
  */
 public interface MenuService {
+
     List<Menu> getMenuByStoreId(int id);
+
+    Menu getStoreById(int id);
+
+    boolean deleteMenu(int id);
 }

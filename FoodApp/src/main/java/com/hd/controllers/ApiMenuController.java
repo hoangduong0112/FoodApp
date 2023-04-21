@@ -4,7 +4,7 @@
  */
 package com.hd.controllers;
 
-import com.hd.service.StoreService;
+import com.hd.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Duong Hoang
  */
 @RestController
-public class ApiStoreController {
-    @Autowired
-    private StoreService storeService;
-    @DeleteMapping("/api/stores/{storeId}")
+public class ApiMenuController {
+     @Autowired
+    private MenuService menuService;
+    
+    @DeleteMapping("/api/my-store/{menuId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteStore(@PathVariable(value = "storeId") int id){
-        this.storeService.deteleStore(id);
+    public void deleteProduct(@PathVariable(value = "menuId") int id) {
+        this.menuService.deleteMenu(id);
     }
 }

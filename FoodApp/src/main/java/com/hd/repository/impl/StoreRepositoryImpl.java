@@ -91,4 +91,18 @@ public class StoreRepositoryImpl implements StoreRepository {
         return (Store) query.getSingleResult();
     }
 
+    @Override
+    public boolean deteleStore(int id) {
+        Store store = this.getStoreById(id);
+        Session s = factory.getObject().getCurrentSession();
+        try {
+            s.delete(store);
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
+
+
+    }
+
 }

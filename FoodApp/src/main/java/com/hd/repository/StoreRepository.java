@@ -17,4 +17,5 @@ public interface StoreRepository {
     Store getStoreById(int id);
     boolean addOrUpdate(Store p);
     Store getStoreByUserId(int id);
+    boolean deteleStore(int id);
 }

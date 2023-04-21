@@ -12,5 +12,9 @@ import java.util.List;
  * @author Duong Hoang
  */
 public interface MenuRepository {
+
     List<Menu> getMenuByStoreId(int id);
+
+    Menu getMenuById(int id);
+    boolean deleteMenu(int id);
 }

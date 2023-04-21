@@ -12,5 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author Duong Hoang
  */
 public interface UserService extends UserDetailsService {
-     public User getUserByUsername(String username);
+
+    public User getUserByUsername(String username);
+
+    User getCurrentUser();
 }

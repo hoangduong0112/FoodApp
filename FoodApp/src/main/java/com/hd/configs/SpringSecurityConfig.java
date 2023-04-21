@@ -6,6 +6,7 @@ package com.hd.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.hd.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,11 +29,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {
     "com.hd.controllers",
     "com.hd.repository",
-    "com.hd.service"
+    "com.hd.service",
+    "com.hd.handler"
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-   @Autowired
+    @Autowired
+    private LoginSuccessHandler loginHandler;
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
@@ -47,15 +51,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http)
             throws Exception {
-        http.formLogin().loginPage("/login") 
+        http.formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password");
-        
+
         http.formLogin().defaultSuccessUrl("/")
                 .failureUrl("/login?error");
-        
+
+        http.formLogin().successHandler(this.loginHandler).failureUrl("/login?error");
         http.logout().logoutSuccessUrl("/login");
-        
+
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");
 

@@ -24,5 +24,6 @@ public interface StoreService {
     
     Store getStoreByUserId(int id);
     
+     boolean deteleStore(int id);
     
 }

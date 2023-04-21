@@ -6,7 +6,7 @@ package com.hd.repository.impl;
 
 import com.hd.pojo.User;
 import com.hd.repository.UserRepository;
-import java.util.List;
+
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,13 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Duong Hoang
  */
 @Repository
+@Transactional
 public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    @Transactional
     public User getUserByUsername(String username) {
         Session s = factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
@@ -41,4 +41,5 @@ public class UserRepositoryImpl implements UserRepository {
         Query query = s.createQuery(q);
         return (User) query.getSingleResult();
     }
+
 }

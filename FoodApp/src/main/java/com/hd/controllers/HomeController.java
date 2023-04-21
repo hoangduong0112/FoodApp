@@ -13,6 +13,7 @@ import com.hd.service.CategoryService;
 import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
 import com.hd.service.StoreService;
+import com.hd.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,8 @@ public class HomeController {
 
     @Autowired
     private MenuItemsService menuItemsService;
+    @Autowired
+    private UserService userService;
 
     @ModelAttribute
     public void commonAttribute(Model model) {

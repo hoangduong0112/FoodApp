@@ -24,5 +24,15 @@ public class MenuItemsServiceImpl implements MenuItemsService{
     public List<MenuItems> getMenuItemsByMenuId(int id) {
         return this.menuItemsRepository.getMenuItemsByMenuId(id);
     }
+
+    @Override
+    public MenuItems getItem(int id) {
+        return this.menuItemsRepository.getItem(id);
+    }
+
+    @Override
+    public boolean deleteItem(int id) {
+        return this.menuItemsRepository.deleteItem(id);
+    }
     
 }

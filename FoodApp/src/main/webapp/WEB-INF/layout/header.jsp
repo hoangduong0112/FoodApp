@@ -119,7 +119,7 @@
                                 <a href="${register}" class="nav-item nav-link">Register</a>
                             </c:when>
                             <c:when test="${pageContext.request.userPrincipal.name != null}">
-                                <a href="#" class="nav-item nav-link">Hello, ${pageContext.request.userPrincipal.name}</a>
+                                <a href="#" class="nav-item nav-link">Hello, ${pageContext.session.getAttribute("currentUser").hoten}</a>
                                 <a href="<c:url value="/logout" />" class="nav-item nav-link">Log out</a>
                             </c:when>
                         </c:choose>                   

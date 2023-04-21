@@ -60,8 +60,13 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public Store getStoreByUserId(int i) {
-        return this.storeRepository.getStoreByUserId(i);
+    public Store getStoreByUserId(int id) {
+        return this.storeRepository.getStoreByUserId(id);
+    }
+
+    @Override
+    public boolean deteleStore(int id) {
+        return this.storeRepository.deteleStore(id);
     }
     
 }

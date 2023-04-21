@@ -24,5 +24,15 @@ public class MenuServiceImpl implements MenuService{
     public List<Menu> getMenuByStoreId(int id) {
         return this.menuRepository.getMenuByStoreId(id);
     }
+
+    @Override
+    public Menu getStoreById(int id) {
+        return this.menuRepository.getMenuById(id);
+    }
+
+    @Override
+    public boolean deleteMenu(int id) {
+        return this.menuRepository.deleteMenu(id);
+    }
     
 }

@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -38,5 +39,24 @@ public class MenuRepositoryImpl implements MenuRepository{
         List<Menu> menus= query.getResultList();
         return menus;
     }
+
+    @Override
+    public Menu getMenuById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Menu.class, id);
+    }
+    
+    @Override
+    public boolean deleteMenu(int id) {
+       Menu m = this.getMenuById(id);
+       Session s = factory.getObject().getCurrentSession();
+       try{
+           s.delete(m);
+           return true;
+       } catch(HibernateException ex){
+           return false;
+       }
+    }
+
     
 }

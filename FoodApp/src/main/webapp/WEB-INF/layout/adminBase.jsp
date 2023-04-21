@@ -46,16 +46,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js" integrity="sha512-fHXRw0CXruAoINU11+hgqYvY/PcsOWzmj0QmcSOtjlJcqITbPyypc8cYpidjPurWpCnlB8VKfRwx6PIpASCUkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>     
-        <script src="<c:url value='/resources/js/admin-main.js' />"></script>
+        <script src="<c:url value='/resources/js/store.js' />"></script>
     </head>
     <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <tiles:insertAttribute name="AdminSidebar" />
             <div class="content">
-                <tiles:insertAttribute name="AdminHeader" />
-                <div class="container-fluid pt-4 px-4">
-                    <tiles:insertAttribute name="AdminContent" />
+                <!-- Spinner Start -->
+                <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
+                <tiles:insertAttribute name="AdminHeader" />             
+                <tiles:insertAttribute name="AdminContent" />
                 <tiles:insertAttribute name="AdminFooter" />
             </div>
 

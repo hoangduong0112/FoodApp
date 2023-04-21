@@ -13,4 +13,7 @@ import java.util.List;
  */
 public interface MenuItemsRepository {
     List<MenuItems> getMenuItemsByMenuId(int id);
+    
+    MenuItems getItem(int id);
+    boolean deleteItem(int id);
 }
