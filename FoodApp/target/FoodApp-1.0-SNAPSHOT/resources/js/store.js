@@ -37,7 +37,6 @@ function deleteMenuItem(endpoint, id) {
             .then(response => {
                 console.log(response)
                 if (response.status === 204) {
-                    spinner()
                     document.getElementById(`item${id}`).style.display = "none";
                     alert("Xóa thành công")
 

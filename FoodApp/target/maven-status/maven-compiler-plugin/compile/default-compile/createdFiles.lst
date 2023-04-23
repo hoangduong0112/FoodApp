@@ -1,3 +1,4 @@
+com\hd\handler\LoginSuccessHandler.class
 com\hd\controllers\PartnerController.class
 com\hd\pojo\Category_.class
 com\hd\service\MenuService.class
@@ -10,6 +11,7 @@ com\hd\service\impl\UserServiceImpl.class
 com\hd\repository\MenuRepository.class
 com\hd\service\impl\StoreServiceImpl.class
 com\hd\pojo\User.class
+com\hd\controllers\ApiMenuController.class
 com\hd\configs\DispatcherServletInit.class
 com\hd\repository\impl\MenuRepositoryImpl.class
 com\hd\pojo\MenuItems_.class
@@ -23,6 +25,7 @@ com\hd\service\UserService.class
 com\hd\controllers\ApiStoreController.class
 com\hd\repository\CategoryRepository.class
 com\hd\controllers\HomeController.class
+com\hd\controllers\ApiMenuItemController.class
 com\hd\service\CategoryService.class
 com\hd\service\impl\MenuServiceImpl.class
 com\hd\service\impl\CategoryServiceImpl.class

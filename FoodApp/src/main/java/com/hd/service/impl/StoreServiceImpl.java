@@ -47,7 +47,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public boolean addOrUpdate(Store p) {
 
-        if(p.getFile() != null){
+        if(!p.getFile().isEmpty()){
             try {
                 Map res =this.cloudinary.uploader().upload(p.getFile().getBytes(), ObjectUtils.asMap("resource type", "auto"));
                 p.setImage(res.get("secure_url").toString());

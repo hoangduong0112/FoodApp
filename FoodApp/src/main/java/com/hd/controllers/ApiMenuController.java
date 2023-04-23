@@ -23,7 +23,7 @@ public class ApiMenuController {
     
     @DeleteMapping("/api/my-store/{menuId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable(value = "menuId") int id) {
+    public void deleteMenu(@PathVariable(value = "menuId") int id) {
         this.menuService.deleteMenu(id);
     }
 }

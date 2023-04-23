@@ -24,7 +24,7 @@ public class ApiMenuItemController {
 
     @DeleteMapping("/api/deleteItem/{itemId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable(value = "itemId") int id) {
+    public void deleteItem(@PathVariable(value = "itemId") int id) {
         this.itemService.deleteItem(id);
     }
 }

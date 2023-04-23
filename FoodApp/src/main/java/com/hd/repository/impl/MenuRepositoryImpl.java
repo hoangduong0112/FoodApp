@@ -49,7 +49,7 @@ public class MenuRepositoryImpl implements MenuRepository{
     @Override
     public boolean deleteMenu(int id) {
        Menu m = this.getMenuById(id);
-       Session s = factory.getObject().getCurrentSession();
+       Session s = this.factory.getObject().getCurrentSession();
        try{
            s.delete(m);
            return true;

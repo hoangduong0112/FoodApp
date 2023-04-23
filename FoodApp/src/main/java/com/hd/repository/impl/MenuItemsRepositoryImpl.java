@@ -51,7 +51,7 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
     @Override
     public boolean deleteItem(int id) {
         MenuItems item = this.getItem(id);
-        Session s = factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         try {
             s.delete(item);
             return true;

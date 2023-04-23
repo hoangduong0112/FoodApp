@@ -5,6 +5,7 @@
 package com.hd.repository.impl;
 
 import com.hd.pojo.Store;
+import com.hd.pojo.User;
 import com.hd.repository.StoreRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,19 @@ public class StoreRepositoryImpl implements StoreRepository {
     public boolean addOrUpdate(Store p) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
-            s.save(p);
+            if (p.getId() > 0) {
+                Store store = this.getStoreById(p.getId());
+
+                store.setName(p.getName());
+                store.setAddress(p.getAddress());
+                store.setSdt(p.getSdt());
+                store.setCategoryId(p.getCategoryId());
+                store.setMenuSet(p.getMenuSet());
+                store.setImage(p.getImage());
+                s.save(store);
+            } else {
+                s.save(p);
+            }
             return true;
         } catch (HibernateException ex) {
             return false;
@@ -101,7 +114,6 @@ public class StoreRepositoryImpl implements StoreRepository {
         } catch (HibernateException ex) {
             return false;
         }
-
 
     }
 

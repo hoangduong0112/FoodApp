@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,10 +26,16 @@ public class AdminController {
     @Autowired
     private StoreService storeService;
 
+    @ModelAttribute
+    public void commonAttribute(Model model) {
+        model.addAttribute("stores", this.storeService.getStores(null));
+
+    }
+
     @RequestMapping("/stores")
     public String addStore(Model model, @ModelAttribute(value = "store") Store s) {
         if (this.storeService.addOrUpdate(s) == true) {
-            return "redirect:/";
+            return "redirect:/admin/stores";
         } else {
             model.addAttribute("errMsg", "Something wrong!");
         }
@@ -38,8 +45,13 @@ public class AdminController {
 
     @GetMapping("/stores")
     public String stores(Model model) {
-        model.addAttribute("stores", this.storeService.getStores(null));
         model.addAttribute("store", new Store());
+        return "stores";
+    }
+
+    @GetMapping("/stores/{storeId}")
+    public String updateStore(Model model, @PathVariable(value = "storeId") int id) {
+        model.addAttribute("store", this.storeService.getStoreById(id));
         return "stores";
     }
 
