@@ -40,114 +40,108 @@
                         </div>
                         <div class="modal-body">
 
-                            <form:form method="post" action="${action}" modelAttribute="store">
-                                <div class="form-floating mb-3">
-                                    <form:input type="text" class="form-control" id="name" placeholder="Tên menu" name="name" path="name"/>
-                                    <label for="name">Tên cửa hàng:</label>
-                                </div>
-                            <form:form>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="button" class="btn btn-primary">Tạo</button>
-                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary">Tạo</button>
                         </div>
                     </div>
                 </div>
-
-                <a href="" class="mx-3">Chỉnh sửa</a>
             </div>
 
+            <a href="" class="mx-3">Chỉnh sửa</a>
         </div>
+
     </div>
-    <c:forEach items="${menus}" var="menu">
-        <div class="container-fluid pt-4 px-4" id="menu${menu.id}">
-            <div class="row vh-10 bg-light rounded justify-content-center mx-0">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">${menu.name}</h6>
-                        <div class="justify-content-end">
+</div>
+<c:forEach items="${menus}" var="menu">
+    <div class="container-fluid pt-4 px-4" id="menu${menu.id}">
+        <div class="row vh-10 bg-light rounded justify-content-center mx-0">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">${menu.name}</h6>
+                    <div class="justify-content-end">
 
-                            <!-- Button to trigger the confirmation modal -->
-                            <a href="javascript:;" class="text-danger mx-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteMenu${menu.id}">
-                                Xóa
-                            </a>
+                        <!-- Button to trigger the confirmation modal -->
+                        <a href="javascript:;" class="text-danger mx-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteMenu${menu.id}">
+                            Xóa
+                        </a>
 
-                            <!-- Confirmation modal -->
-                            <div class="modal fade" id="confirmDeleteMenu${menu.id}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete this menu?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <!-- Confirmation modal -->
+                        <div class="modal fade" id="confirmDeleteMenu${menu.id}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this menu?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-                                            <c:url value="/api/my-store/${menu.id}" var="endpoint"/>
-                                            <button type="button" class="btn btn-danger" onclick="deleteMenu('${endpoint}',${menu.id})">Delete</button>
-                                        </div>
+                                        <c:url value="/api/my-store/${menu.id}" var="endpoint"/>
+                                        <button type="button" class="btn btn-danger" onclick="deleteMenu('${endpoint}',${menu.id})">Delete</button>
                                     </div>
                                 </div>
                             </div>
-                            <a href="" class="mx-3">Chỉnh sửa</a>
                         </div>
+                        <a href="" class="mx-3">Chỉnh sửa</a>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th>Tên món</th>
-                                    <th>Giá tiền</th>                      
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${menuItems}" var="items">
-                                    <c:if test="${items[0].menuId.id == menu.id}">
-                                        <c:forEach items="${items}" var="item">
-                                            <tr id="item${item.id}">
-                                                <td style="min-width: 250px">${item.name}</td>
-                                                <td>${item.price}</td>
-                                                <td >
-                                                    <a class="btn btn-sm btn-primary">Detail</a>
-                                                    <a href="javascript:;" class="btn btn-sm btn-primary mx-3" data-bs-toggle="modal"  data-bs-target="#confirmDeleteItem${item.id}">
-                                                        Xóa
-                                                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th>Tên món</th>
+                                <th>Giá tiền</th>                      
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${menuItems}" var="items">
+                                <c:if test="${items[0].menuId.id == menu.id}">
+                                    <c:forEach items="${items}" var="item">
+                                        <tr id="item${item.id}">
+                                            <td style="min-width: 250px">${item.name}</td>
+                                            <td>${item.price}</td>
+                                            <td >
+                                                <a class="btn btn-sm btn-primary">Detail</a>
+                                                <a href="javascript:;" class="btn btn-sm btn-primary mx-3" data-bs-toggle="modal"  data-bs-target="#confirmDeleteItem${item.id}">
+                                                    Xóa
+                                                </a>
 
-                                                    <!-- Confirmation modal -->
-                                                    <div class="modal fade" id="confirmDeleteItem${item.id}" tabindex="-1" aria-labelledby="confirmDeleteItemLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="confirmDeleteItemLabel">Confirm Deletion</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Are you sure you want to delete this menu?
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                    <c:url value="/api/deleteItem/${item.id}" var="endpoint"/>
-                                                                    <button type="button" class="btn btn-danger" onclick="deleteMenuItem('${endpoint}',${item.id})">Delete</button>
-                                                                </div>
+                                                <!-- Confirmation modal -->
+                                                <div class="modal fade" id="confirmDeleteItem${item.id}" tabindex="-1" aria-labelledby="confirmDeleteItemLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="confirmDeleteItemLabel">Confirm Deletion</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this menu?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                <c:url value="/api/deleteItem/${item.id}" var="endpoint"/>
+                                                                <button type="button" class="btn btn-danger" onclick="deleteMenuItem('${endpoint}',${item.id})">Delete</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                        </c:forEach>
-                                    </c:if>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+                                    </c:forEach>
+                                </c:if>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </c:forEach>
+    </div>
+</c:forEach>

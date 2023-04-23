@@ -8,6 +8,7 @@ import com.hd.pojo.User;
 import com.hd.repository.UserRepository;
 import com.hd.service.UserService;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,9 +49,10 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.getUserByUsername(username);
     }
 
+
     @Override
-    public User getCurrentUser() {
-        return this.userRepository.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+    public List<User> getUsers() {
+        return this.userRepository.getUsers();
     }
 
 }

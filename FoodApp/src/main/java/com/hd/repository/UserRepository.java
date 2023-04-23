@@ -5,6 +5,7 @@
 package com.hd.repository;
 
 import com.hd.pojo.User;
+import java.util.List;
 
 /**
  *
@@ -13,4 +14,5 @@ import com.hd.pojo.User;
 public interface UserRepository {
 
     User getUserByUsername(String username);
+    List<User> getUsers();
 }

@@ -5,6 +5,7 @@
 package com.hd.service;
 
 import com.hd.pojo.User;
+import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -15,5 +16,6 @@ public interface UserService extends UserDetailsService {
 
     public User getUserByUsername(String username);
 
-    User getCurrentUser();
+
+    List<User> getUsers();
 }

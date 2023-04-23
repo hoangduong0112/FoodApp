@@ -6,6 +6,7 @@ package com.hd.repository.impl;
 
 import com.hd.pojo.User;
 import com.hd.repository.UserRepository;
+import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -40,6 +41,18 @@ public class UserRepositoryImpl implements UserRepository {
 
         Query query = s.createQuery(q);
         return (User) query.getSingleResult();
+    }
+
+    @Override
+    public List<User> getUsers() {
+        Session s = factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<User> q = b.createQuery(User.class);
+        Root root = q.from(User.class);
+        q.select(root);
+        Query query = s.createQuery(q);
+        List<User> users = query.getResultList();
+        return users;
     }
 
 }

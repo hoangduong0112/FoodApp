@@ -4,15 +4,34 @@
  */
 
 // Spinner
-var spinner = function () {
+var removeSpinner = function () {
     setTimeout(function () {
         if ($('#spinner').length > 0) {
             $('#spinner').removeClass('show');
         }
     }, 1);
 };
-spinner();
+function showSpinner() {
+  $("#spinner").addClass('show');
+}
+removeSpinner()
 
+function deleteStore(endpoint, id) {
+    fetch(endpoint, {
+        method: 'delete'
+    })
+            .then(response => {
+                showSpinner()
+                if (response.status === 204) {
+                    document.getElementById(`store${id}`).style.display = "none";
+                    alert("Xóa thành công")
+                    removeSpinner()
+
+                } else {
+                    alert("Xóa thất bại")
+                }
+            });
+}
 function deleteMenu(endpoint, id) {
     fetch(endpoint, {
         method: 'delete'

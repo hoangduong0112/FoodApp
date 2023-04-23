@@ -11,6 +11,7 @@ import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
 import com.hd.service.StoreService;
 import com.hd.service.UserService;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ public class PartnerController {
     private UserService userService;
     
     @RequestMapping(path={"/my-store" , "/"})
-    public String stores(Model model) {
-        Store s = this.storeService.getStoreByUserId(this.userService.getCurrentUser().getId());
+    public String stores(Model model, Principal p) {
+        Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
         model.addAttribute("myStore", s);
         List<Menu> menus = this.menuService.getMenuByStoreId(s.getId());
         List<List<MenuItems>> menuItemsList = new ArrayList<>();
@@ -54,5 +55,7 @@ public class PartnerController {
         model.addAttribute("menuItems", menuItemsList);
         return "my-store";
     }
+    
+    
     
 }

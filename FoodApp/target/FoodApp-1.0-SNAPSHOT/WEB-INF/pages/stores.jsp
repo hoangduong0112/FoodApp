@@ -14,91 +14,67 @@
 <c:if test="${errMsg != null}">
     <div class="alert alert-danger">${errMsg}</div>
 </c:if>
-<c:url value="/admin/stores" var="action"/>
-<form:form method="post" action="${action}" modelAttribute="store" enctype="multipart/form-data">
-    <div class="form-floating mb-3">
-        <form:input type="text" class="form-control" id="name" placeholder="Tên cửa hàng" name="name" path="name"/>
-        <label for="name">Tên cửa hàng:</label>
-    </div>
-    <div class="form-floating mb-3">
-        <form:input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ" name="address" path="address"/>
-        <label for="address">Địa chỉ:</label>
-    </div>
-    <div class="form-floating mb-3">
-        <form:input type="sdt" class="form-control" id="sdt" placeholder="Nhập số điện thoại" name="sdt" path="sdt"/>
-        <label for="sdt">Số điện thoại:</label>
-    </div>
-    <div class="form-floating">
-        <form:select class="form-select" id="categoryId" name="categoryId" path="categoryId">
-            <c:forEach items="${categories}" var="c">
-                <c:choose>
-                    <c:when test="${store.categoryId.id == c.id}">
-                        <option value="${c.id}" selected>${c.name}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="${c.id}">${c.name}</option>
-                    </c:otherwise>
-                </c:choose>
+<c:url value="/admin/stores/add" var="add"/>
+<a href="${add}">Tạo mới 1 cửa hàng</a>
 
-            </c:forEach>
-        </form:select>
-        <label for="categoryId" class="form-label">Danh mục sản phẩm:</label>
-    </div>
-    <div class="form-floating mt-3">
-        <c:if test="${store.image == null && store.image == ''}">
-            <img src="${store.image}" width="200">
-        </c:if>
-        <form:input type="file" class="form-control" id="file" name="file" path="file"/>
-        <label for="file">Ảnh cửa hàng:</label>
-    </div>
-    <div class="form-floating my-3">
-        <c:choose>
-            <c:when test="${store.id > 0}">
-                <form:hidden path="id" />
-                <form:hidden path="image" />
-                <input type="submit" value="Cập nhật Cửa hàng" class="btn btn-success" />
-            </c:when>
-            <c:otherwise>
-                <input type="submit" value="Tạo Cửa hàng" class="btn btn-danger"/>
-            </c:otherwise>
-        </c:choose>
-
-    </form:form>
-
-    <div class="col-12">
-        <div class="bg-light rounded h-100 p-4">
-            <h6 class="mb-4">Danh sách cửa hàng</h6>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Danh sách cửa hàng</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr id="store${s.id}">
+                        <th scope="col">id</th>
+                        <th scope="col">tên</th>
+                        <th scope="col">image</th>
+                        <th scope="col">cate</th>
+                        <th scope="col">user</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${stores}" var="s">
                         <tr id="store${s.id}">
-                            <th scope="col">id</th>
-                            <th scope="col">tên</th>
-                            <th scope="col">image</th>
-                            <th scope="col">cate</th>
-                            <th scope="col">user</th>
-                            <th scope="col"></th>
+                            <th scope="row">${s.id}</th>
+                            <td>${s.name}</td>
+                            <td>
+                                <img src="${s.image}" width="90" />
+                            </td>
+                            <td>${s.categoryId.name}</td>
+                            <td>${s.userId.username}</td>
+                            <td>
+                                
+                                <a href="javascript:;" class="text-danger mx-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteStore${s.id}">
+                                    Xóa
+                                </a>
+
+                                <!-- Confirmation modal -->
+                                <div class="modal fade" id="confirmDeleteStore${s.id}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Bạn có chắc chắn xóa cửa hàng này không, nó sẽ xóa toàn bộ menu và item của cửa hàng ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                                                <c:url value="/api/stores/${s.id}" var="endpoint" />
+                                                <button type="button" class="btn btn-danger" onclick="deleteStore('${endpoint}',${s.id})">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="<c:url value="/admin/stores/${s.id}" />" class="btn btn-sm btn-primary">Cập nhật</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${stores}" var="s">
-                            <tr>
-                                <th scope="row">${s.id}</th>
-                                <td>${s.name}</td>
-                                <td>
-                                    <img src="${s.image}" width="90" />
-                                </td>
-                                <td>${s.categoryId.name}</td>
-                                <td>${s.userId.username}</td>
-                                <td>
-                                    <c:url value="/api/stores/${s.id}" var="endpoint" />
-                                    <input  type="button" onclick="deleteProduct('${endpoint}', ${s.id})" value="Xóa" class="btn btn-sm btn-danger" />
-                                    <a href="<c:url value="/admin/stores/${s.id}" />" class="btn btn-sm btn-primary">Cập nhật</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>

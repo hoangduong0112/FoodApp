@@ -6,6 +6,7 @@ package com.hd.controllers;
 
 import com.hd.pojo.Store;
 import com.hd.service.StoreService;
+import com.hd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,15 +26,19 @@ public class AdminController {
 
     @Autowired
     private StoreService storeService;
+    
+     @Autowired
+    private UserService userService;
 
     @ModelAttribute
     public void commonAttribute(Model model) {
         model.addAttribute("stores", this.storeService.getStores(null));
+        model.addAttribute("users", this.userService.getUsers());
 
     }
 
     @RequestMapping("/stores")
-    public String addStore(Model model, @ModelAttribute(value = "store") Store s) {
+    public String addOrUpdateStore(Model model, @ModelAttribute(value = "store") Store s) {
         if (this.storeService.addOrUpdate(s) == true) {
             return "redirect:/admin/stores";
         } else {
@@ -45,14 +50,19 @@ public class AdminController {
 
     @GetMapping("/stores")
     public String stores(Model model) {
-        model.addAttribute("store", new Store());
         return "stores";
+    }
+    
+    @GetMapping("/stores/add")
+    public String addStore(Model model) {
+        model.addAttribute("store", new Store());
+        return "store-form";
     }
 
     @GetMapping("/stores/{storeId}")
     public String updateStore(Model model, @PathVariable(value = "storeId") int id) {
         model.addAttribute("store", this.storeService.getStoreById(id));
-        return "stores";
+        return "store-form";
     }
 
 }

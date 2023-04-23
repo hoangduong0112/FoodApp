@@ -74,7 +74,7 @@ public class StoreRepositoryImpl implements StoreRepository {
     public boolean addOrUpdate(Store p) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
-            if (p.getId() > 0) {
+            if( p.getId() != null ){
                 Store store = this.getStoreById(p.getId());
 
                 store.setName(p.getName());
@@ -83,6 +83,7 @@ public class StoreRepositoryImpl implements StoreRepository {
                 store.setCategoryId(p.getCategoryId());
                 store.setMenuSet(p.getMenuSet());
                 store.setImage(p.getImage());
+                store.setUserId(p.getUserId());
                 s.save(store);
             } else {
                 s.save(p);

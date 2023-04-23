@@ -12,7 +12,9 @@
     bottom: 45px;
     z-index: 99;
 }
-
+body{
+    padding-bottom: 50px;
+}
 a{
     text-decoration: none;
 }
