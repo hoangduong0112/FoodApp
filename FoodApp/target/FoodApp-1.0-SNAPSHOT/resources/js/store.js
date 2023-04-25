@@ -11,21 +11,19 @@ var removeSpinner = function () {
         }
     }, 1);
 };
-function showSpinner() {
-  $("#spinner").addClass('show');
-}
-removeSpinner()
 
+removeSpinner()
 function deleteStore(endpoint, id) {
+    document.getElementById('#spinner').style.display = "block";
     fetch(endpoint, {
         method: 'delete'
     })
             .then(response => {
-                showSpinner()
+
                 if (response.status === 204) {
                     document.getElementById(`store${id}`).style.display = "none";
                     alert("Xóa thành công")
-                    removeSpinner()
+                    document.getElementById('#spinner').style.display = "none";
 
                 } else {
                     alert("Xóa thất bại")
@@ -44,8 +42,13 @@ function deleteMenu(endpoint, id) {
                     spinner();
 
                 } else {
-                    alert("Xóa thất bại")
+                    alert("Xóa thất bại do Menu vẫn còn sản phẩm");
                 }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 400) {
+                    alert(error.response.data.message);
+                } 
             });
 }
 
@@ -64,3 +67,25 @@ function deleteMenuItem(endpoint, id) {
                 }
             });
 }
+function addMenu() {
+    var menuName = $("#MenuName").val();
+    $.ajax({
+        type: "POST",
+        url: "/api/menu/",
+        data: JSON.stringify(menuName),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert("Menu added successfully!");
+        },
+        error: function (xhr, status, error) {
+            alert("Error adding menu: " + error);
+        }
+    });
+}
+
+
+
+
+
+

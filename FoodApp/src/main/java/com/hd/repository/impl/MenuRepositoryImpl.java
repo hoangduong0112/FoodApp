@@ -24,10 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class MenuRepositoryImpl implements MenuRepository{
+public class MenuRepositoryImpl implements MenuRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
+
     @Override
     public List<Menu> getMenuByStoreId(int id) {
         Session s = factory.getObject().getCurrentSession();
@@ -36,7 +37,7 @@ public class MenuRepositoryImpl implements MenuRepository{
         Root root = q.from(Menu.class);
         q.select(root).where(b.equal(root.get("storeId"), id));
         Query query = s.createQuery(q);
-        List<Menu> menus= query.getResultList();
+        List<Menu> menus = query.getResultList();
         return menus;
     }
 
@@ -45,18 +46,37 @@ public class MenuRepositoryImpl implements MenuRepository{
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Menu.class, id);
     }
-    
+
     @Override
     public boolean deleteMenu(int id) {
-       Menu m = this.getMenuById(id);
-       Session s = this.factory.getObject().getCurrentSession();
-       try{
-           s.delete(m);
-           return true;
-       } catch(HibernateException ex){
-           return false;
-       }
+        Menu m = this.getMenuById(id);
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            s.delete(m);
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
     }
 
-    
+    @Override
+    public boolean addOrUpdate(Menu m) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            if (m.getId() != null) {
+                Menu menu = this.getMenuById(m.getId());
+
+                menu.setName(m.getName());
+
+                s.save(menu);
+            } else {
+                s.save(m);
+            }
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
+
+    }
+
 }

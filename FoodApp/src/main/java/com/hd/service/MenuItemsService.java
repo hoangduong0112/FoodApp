@@ -12,8 +12,12 @@ import java.util.List;
  * @author nhoxd
  */
 public interface MenuItemsService {
+
     List<MenuItems> getMenuItemsByMenuId(int id);
-        
+
+    boolean addOrUpdate(MenuItems item);
+
     MenuItems getItem(int id);
+
     boolean deleteItem(int id);
 }

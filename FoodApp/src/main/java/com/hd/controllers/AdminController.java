@@ -26,22 +26,25 @@ public class AdminController {
 
     @Autowired
     private StoreService storeService;
-    
-     @Autowired
+
+    @Autowired
     private UserService userService;
 
     @ModelAttribute
     public void commonAttribute(Model model) {
         model.addAttribute("stores", this.storeService.getStores(null));
         model.addAttribute("users", this.userService.getUsers());
-
     }
 
     @RequestMapping("/stores")
     public String addOrUpdateStore(Model model, @ModelAttribute(value = "store") Store s) {
-        if (this.storeService.addOrUpdate(s) == true) {
-            return "redirect:/admin/stores";
-        } else {
+        if (this.storeService.getStoreByUserId(s.getUserId().getId()) != null) {
+            model.addAttribute("errMsg", "User hiện đã quản trị 1 cửa hàng");
+            return "stores";
+        } else if (this.storeService.addOrUpdate(s) == true) {
+                return "redirect:/admin/stores";
+            }
+        else {
             model.addAttribute("errMsg", "Something wrong!");
         }
 
@@ -52,7 +55,7 @@ public class AdminController {
     public String stores(Model model) {
         return "stores";
     }
-    
+
     @GetMapping("/stores/add")
     public String addStore(Model model) {
         model.addAttribute("store", new Store());

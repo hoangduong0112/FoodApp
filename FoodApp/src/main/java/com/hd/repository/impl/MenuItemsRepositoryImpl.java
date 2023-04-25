@@ -60,5 +60,25 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
         }
 
     }
+    
+    @Override
+    public boolean addOrUpdate(MenuItems m) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            if (m.getId() != null) {
+                MenuItems item = this.getItem(m.getId());
+
+                item.setName(m.getName());
+
+                s.save(item);
+            } else {
+                s.save(m);
+            }
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
+
+    }
 
 }

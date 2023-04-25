@@ -34,5 +34,10 @@ public class MenuItemsServiceImpl implements MenuItemsService{
     public boolean deleteItem(int id) {
         return this.menuItemsRepository.deleteItem(id);
     }
+
+    @Override
+    public boolean addOrUpdate(MenuItems item) {
+        return this.menuItemsRepository.addOrUpdate(item);
+    }
     
 }

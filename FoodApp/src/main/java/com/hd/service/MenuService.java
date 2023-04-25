@@ -15,7 +15,10 @@ public interface MenuService {
 
     List<Menu> getMenuByStoreId(int id);
 
-    Menu getStoreById(int id);
+    Menu getMenuById(int id);
 
     boolean deleteMenu(int id);
+
+    boolean addOrUpdate(Menu m);
+    
 }

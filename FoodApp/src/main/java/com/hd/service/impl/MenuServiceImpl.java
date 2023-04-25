@@ -16,17 +16,18 @@ import org.springframework.stereotype.Service;
  * @author Duong Hoang
  */
 @Service
-public class MenuServiceImpl implements MenuService{
+public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuRepository menuRepository;
+
     @Override
     public List<Menu> getMenuByStoreId(int id) {
         return this.menuRepository.getMenuByStoreId(id);
     }
 
     @Override
-    public Menu getStoreById(int id) {
+    public Menu getMenuById(int id) {
         return this.menuRepository.getMenuById(id);
     }
 
@@ -34,5 +35,12 @@ public class MenuServiceImpl implements MenuService{
     public boolean deleteMenu(int id) {
         return this.menuRepository.deleteMenu(id);
     }
+
+    @Override
+    public boolean addOrUpdate(Menu menu) {
+        return this.menuRepository.addOrUpdate(menu);
+    }
+
     
+
 }

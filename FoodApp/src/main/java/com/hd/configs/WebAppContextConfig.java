@@ -7,6 +7,7 @@ package com.hd.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.hd.formatter.CategoryFormatter;
+import com.hd.formatter.MenuFormatter;
 import com.hd.formatter.UserFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -93,6 +94,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter());
         registry.addFormatter(new UserFormatter());
+        registry.addFormatter(new MenuFormatter());
     }
 
 }

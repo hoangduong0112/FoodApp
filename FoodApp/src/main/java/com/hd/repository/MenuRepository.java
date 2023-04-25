@@ -17,4 +17,5 @@ public interface MenuRepository {
 
     Menu getMenuById(int id);
     boolean deleteMenu(int id);
+    boolean addOrUpdate(Menu m);
 }

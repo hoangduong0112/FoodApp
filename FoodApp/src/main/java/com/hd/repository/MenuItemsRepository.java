@@ -16,4 +16,5 @@ public interface MenuItemsRepository {
     
     MenuItems getItem(int id);
     boolean deleteItem(int id);
+    boolean addOrUpdate(MenuItems m);
 }

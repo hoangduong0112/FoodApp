@@ -75,5 +75,5 @@
                 <input type="submit" value="Tạo Cửa hàng" class="btn btn-danger"/>
             </c:otherwise>
         </c:choose>
-
-    </form:form>
+    </div>
+</form:form>
