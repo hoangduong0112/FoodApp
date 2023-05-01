@@ -10,6 +10,7 @@ import com.hd.repository.StoreRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -35,7 +36,7 @@ public class StoreRepositoryImpl implements StoreRepository {
 
     @Override
     public List<Store> getStores(Map<String, String> params) {
-        Session s = factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Store> q = b.createQuery(Store.class);
         Root root = q.from(Store.class);
@@ -74,7 +75,7 @@ public class StoreRepositoryImpl implements StoreRepository {
     public boolean addOrUpdate(Store p) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
-            if( p.getId() != null ){
+            if (p.getId() != null) {
                 Store store = this.getStoreById(p.getId());
 
                 store.setName(p.getName());
@@ -96,7 +97,7 @@ public class StoreRepositoryImpl implements StoreRepository {
 
     @Override
     public Store getStoreByUserId(int id) {
-        Session s = factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Store> q = b.createQuery(Store.class);
         Root root = q.from(Store.class);
@@ -108,7 +109,7 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     public boolean deteleStore(int id) {
         Store store = this.getStoreById(id);
-        Session s = factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         try {
             s.delete(store);
             return true;
@@ -116,6 +117,33 @@ public class StoreRepositoryImpl implements StoreRepository {
             return false;
         }
 
+    }
+
+    @Override
+    public boolean doesStoreExistByUserId(int userId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Store> q = b.createQuery(Store.class);
+        Root root = q.from(Store.class);
+        q.select(root).where(b.equal(root.get("userId"), userId));
+        Query query = s.createQuery(q);
+        try {
+            Store store = (Store) query.getSingleResult();
+            return store != null;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean existByName(String name) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+        Root<Store> root = query.from(Store.class);
+        query.select(cb.count(root)).where(cb.equal(root.get("name"), name));
+        Long count = session.createQuery(query).getSingleResult();
+        return count > 0;
     }
 
 }

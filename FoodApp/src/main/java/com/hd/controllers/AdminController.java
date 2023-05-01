@@ -5,11 +5,14 @@
 package com.hd.controllers;
 
 import com.hd.pojo.Store;
+import com.hd.service.StatsService;
 import com.hd.service.StoreService;
 import com.hd.service.UserService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +33,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StatsService statsService;
+
     @ModelAttribute
     public void commonAttribute(Model model) {
         model.addAttribute("stores", this.storeService.getStores(null));
@@ -37,14 +43,16 @@ public class AdminController {
     }
 
     @RequestMapping("/stores")
-    public String addOrUpdateStore(Model model, @ModelAttribute(value = "store") Store s) {
-        if (this.storeService.getStoreByUserId(s.getUserId().getId()) != null) {
+    public String addOrUpdateStore(Model model, @ModelAttribute(value = "store") @Valid Store s, BindingResult rs) {
+        if (rs.hasErrors()) {
+            return "store-form";
+        }
+        if (this.storeService.doesStoreExistByUserId(s.getUserId().getId())) {
             model.addAttribute("errMsg", "User hiện đã quản trị 1 cửa hàng");
             return "stores";
         } else if (this.storeService.addOrUpdate(s) == true) {
-                return "redirect:/admin/stores";
-            }
-        else {
+            return "redirect:/admin/stores";
+        } else {
             model.addAttribute("errMsg", "Something wrong!");
         }
 
@@ -66,6 +74,13 @@ public class AdminController {
     public String updateStore(Model model, @PathVariable(value = "storeId") int id) {
         model.addAttribute("store", this.storeService.getStoreById(id));
         return "store-form";
+    }
+
+    @GetMapping("/stats")
+    public String stats(Model model) {
+        model.addAttribute("statsStores", this.statsService.statsStore());
+        model.addAttribute("revenues", this.statsService.statsRevenueStore());
+        return "chartAdmin";
     }
 
 }

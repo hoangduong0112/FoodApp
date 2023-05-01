@@ -30,7 +30,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.hd.controllers",
     "com.hd.repository",
     "com.hd.service",
-    "com.hd.handler"
+    "com.hd.handler",
+    "com.hd.validator"
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 

@@ -65,9 +65,9 @@
                 <i class="fas fa-heart text-primary"></i>
                 <span class="badge" style="color:black">0</span>
             </a>
-            <a href="" class="btn border">
+            <a href="<c:url value="/cart" />" class="btn border">               
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge" style="color:black">0</span>
+                <span class="badge cart-counter" style="color:black">${cartStats.totalQuantity}</span>
             </a>
         </div>
     </div>
@@ -119,7 +119,10 @@
                                 <a href="${register}" class="nav-item nav-link">Register</a>
                             </c:when>
                             <c:when test="${pageContext.request.userPrincipal.name != null}">
-                                <a href="#" class="nav-item nav-link">Hello, ${pageContext.session.getAttribute("currentUser").hoten}</a>
+                                <a href="javascript:;" class="nav-link">
+                                    <img class="rounded-circle me-lg-2" src="${pageContext.session.getAttribute("currentUser").avatar}" alt="" style="width: 40px; height: 40px;">
+                                    <span class="d-none d-lg-inline-flex">John Doe</span>
+                                </a>
                                 <a href="<c:url value="/logout" />" class="nav-item nav-link">Log out</a>
                             </c:when>
                         </c:choose>                   

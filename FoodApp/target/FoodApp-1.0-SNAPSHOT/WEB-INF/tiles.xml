@@ -17,7 +17,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="footer"
                        value="/WEB-INF/layout/footer.jsp" />
     </definition>
-        <definition name="baseAdminLayout"
+    <definition name="baseAdminLayout"
                 template="/WEB-INF/layout/adminBase.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="AdminSidebar"
@@ -39,7 +39,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/menu-detail.jsp" />
     </definition>
     
-     <definition name="stores" extends="baseAdminLayout">
+    <definition name="stores" extends="baseAdminLayout">
         <put-attribute name="title" value="Quản trị cửa hàng" />
         <put-attribute name="AdminContent"
                        value="/WEB-INF/pages/stores.jsp" />
@@ -57,6 +57,18 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/register.jsp" />
     </definition>
     
+    <definition name="cart" extends="baseLayout">
+        <put-attribute name="title" value="Giỏ hàng" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/cart.jsp" />
+    </definition>
+    
+    <definition name="checkout" extends="baseLayout">
+        <put-attribute name="title" value="Kết quả đơn hàng" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/checkout.jsp" />
+    </definition>
+    
     <definition name="my-store" extends="baseAdminLayout">
         <put-attribute name="title" value="Cửa hàng của tôi" />
         <put-attribute name="AdminContent"
@@ -64,16 +76,33 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
     
     <definition name="store-form" extends="baseAdminLayout">
-        <put-attribute name="title" value="Cửa hàng của tôi" />
+        <put-attribute name="title" value="Store" />
         <put-attribute name="AdminContent"
                        value="/WEB-INF/pages/store-form.jsp" />
     </definition>
     
     <definition name="edit-store" extends="baseAdminLayout">
-        <put-attribute name="title" value="Cửa hàng của tôi" />
+        <put-attribute name="title" value="Chỉnh sửa" />
         <put-attribute name="AdminContent"
                        value="/WEB-INF/pages/edit-store.jsp" />
     </definition>
     
+    <definition name="chartOverall" extends="baseAdminLayout">
+        <put-attribute name="title" value="Doanh thu của từng menu" />
+        <put-attribute name="AdminContent"
+                       value="/WEB-INF/pages/chartOverall.jsp" />
+    </definition>
+    
+    <definition name="chartMenu" extends="baseAdminLayout">
+        <put-attribute name="title" value="Doanh thu của từng sản phẩm" />
+        <put-attribute name="AdminContent"
+                       value="/WEB-INF/pages/chartMenu.jsp" />
+    </definition>
+    
+    <definition name="chartAdmin" extends="baseAdminLayout">
+        <put-attribute name="title" value="Store" />
+        <put-attribute name="AdminContent"
+                       value="/WEB-INF/pages/chartAdmin.jsp" />
+    </definition>
 </tiles-definitions>
 

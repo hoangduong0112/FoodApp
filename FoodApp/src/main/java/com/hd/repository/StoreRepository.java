@@ -18,4 +18,7 @@ public interface StoreRepository {
     boolean addOrUpdate(Store p);
     Store getStoreByUserId(int id);
     boolean deteleStore(int id);
+    boolean doesStoreExistByUserId(int userId);
+
+    boolean existByName(String name);
 }

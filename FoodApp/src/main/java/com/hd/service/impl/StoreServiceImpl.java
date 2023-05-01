@@ -68,5 +68,15 @@ public class StoreServiceImpl implements StoreService {
     public boolean deteleStore(int id) {
         return this.storeRepository.deteleStore(id);
     }
+
+    @Override
+    public boolean doesStoreExistByUserId(int userId) {
+        return this.storeRepository.doesStoreExistByUserId(userId);
+    }
+
+    @Override
+    public boolean existByName(String name) {
+        return this.storeRepository.existByName(name);
+    }
     
 }

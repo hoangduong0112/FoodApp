@@ -3,9 +3,9 @@
     Created on : Apr 18, 2023, 9:12:07 PM
     Author     : Duong Hoang
 --%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container-fluid pt-4 px-4">
     <div class="row vh-10 bg-light rounded justify-content-center mx-0">
@@ -32,8 +32,9 @@
             <a href="javascript:;" class="mr-3" data-bs-toggle="modal" data-bs-target="#AddNewMenu">Thêm 1 loại menu</a>
             <!-- Modal -->
             <c:url value="/partner/my-store" var="addmenu"/>
-            <form:form method="post" action="${addmenu}" modelAttribute="menu" >
-                <div class="modal fade" id="AddNewMenu" tabindex="-1" aria-labelledby="addMenuLabel" aria-hidden="true">
+
+            <div class="modal fade" id="AddNewMenu" tabindex="-1" aria-labelledby="addMenuLabel" aria-hidden="true">
+                <form:form method="post" action="${addmenu}" modelAttribute="menu"  accept-charset="UTF-8">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -52,13 +53,13 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-primary">Tạo</button>
+                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                                <input type="submit" class="btn btn-primary" value="Tạo"/>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form:form>
+                </form:form>
+            </div>
             <a href="javascript:;" class="mx-3" data-bs-toggle="modal" data-bs-target="#addItem">Thêm 1 sản phẩm cho Menu ${menu.name}</a>
             <!-- Modal -->
             <c:url value="/partner/my-store/item" var="additem" />
@@ -108,7 +109,7 @@
                     </div>
                 </div>
             </form:form>
-            <a href="" class="mx-3">Chỉnh sửa</a>
+            <a href="<c:url value="/partner/my-store/edit"/>" class="mx-3">Chỉnh sửa</a>
         </div>
         <c:if test="${errMsg != null}">
             <div class="alert alert-danger">${errMsg}</div>
@@ -144,7 +145,7 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
                                         <c:url value="/api/deleteMenu/${menu.id}" var="endpoint"/>
-                                        <button type="button" class="btn btn-danger" onclick="deleteMenu('${endpoint}',${menu.id})">Delete</button>
+                                        <button type="button" class="btn btn-danger" onclick="deleteMenu('${endpoint}',${menu.id})" data-bs-dismiss="modal">Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -222,14 +223,14 @@
                                                                         <div class="mb-3">
                                                                             <label for="NameInput" class="form-label">Tên sản phẩm:</label>
                                                                             <c:choose>
-                                                                                        <c:when test="${m.name != null}">
-                                                                                            <form:input type="text" class="form-control" id="name" name="name" path="name" defaultValue="${m.name}"/>
-                                                                                        </c:when>
-                                                                                        <c:otherwise>
-                                                                                            <form:input type="text" class="form-control" id="name" name="name" path="name" />
-                                                                                        </c:otherwise>
-                                                                                    </c:choose>
-                                                                            
+                                                                                <c:when test="${m.name != null}">
+                                                                                    <form:input type="text" class="form-control" id="name" name="name" path="name" defaultValue="${m.name}"/>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <form:input type="text" class="form-control" id="name" name="name" path="name" />
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+
                                                                             <div class="form-text">
                                                                                 Tên sản phẩm của cửa hàng
                                                                             </div>
@@ -290,7 +291,7 @@
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                                                     <c:url value="/api/deleteItem/${item.id}" var="endpoint"/>
-                                                                    <button type="button" class="btn btn-danger" onclick="deleteMenuItem('${endpoint}',${item.id})">Delete</button>
+                                                                    <button type="button" class="btn btn-danger" onclick="deleteMenuItem('${endpoint}',${item.id})" data-bs-dismiss="modal">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </div>

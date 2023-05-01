@@ -7,8 +7,12 @@ package com.hd.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.hd.formatter.CategoryFormatter;
+import com.hd.formatter.LocalDateFormatter;
 import com.hd.formatter.MenuFormatter;
 import com.hd.formatter.UserFormatter;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,7 +38,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = {
     "com.hd.controllers",
     "com.hd.repository",
-    "com.hd.service"
+    "com.hd.service",
+    "com.hd.validator"
 })
 public class WebAppContextConfig implements WebMvcConfigurer {
 
@@ -57,7 +62,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //    }
     @Bean(name = "validator")
     public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+        LocalValidatorFactoryBean bean
+                = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
     }
@@ -74,6 +80,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 
         return resource;
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**")
@@ -89,12 +96,14 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter());
         registry.addFormatter(new UserFormatter());
         registry.addFormatter(new MenuFormatter());
+        registry.addFormatter(new LocalDateFormatter());
     }
+    
+    
 
 }

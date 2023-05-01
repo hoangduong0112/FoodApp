@@ -15,6 +15,11 @@
     <class>com.hd.pojo.Restaurant</class>
     <class>com.hd.pojo.User_1</class>
     <class>com.hd.pojo.Category_1</class>
+    <class>com.hd.pojo.Follows</class>
+    <class>com.hd.pojo.OrderItems</class>
+    <class>com.hd.pojo.Comments</class>
+    <class>com.hd.pojo.Order1</class>
+    <class>com.hd.pojo.OrderSale</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/foodapp?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

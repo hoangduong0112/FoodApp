@@ -5,6 +5,7 @@
 package com.hd.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MenuItems.findByPrice", query = "SELECT m FROM MenuItems m WHERE m.price = :price")})
 public class MenuItems implements Serializable {
 
+    @Column(name = "price")
+    private Long price;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,12 +51,11 @@ public class MenuItems implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "price")
-    private Float price;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne
     private Menu menuId;
+    @OneToMany(mappedBy = "itemId")
+    private Set<OrderItems> orderItemsSet;
 
     public MenuItems() {
     }
@@ -80,13 +85,6 @@ public class MenuItems implements Serializable {
         this.name = name;
     }
 
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
 
     public Menu getMenuId() {
         return menuId;
@@ -94,6 +92,15 @@ public class MenuItems implements Serializable {
 
     public void setMenuId(Menu menuId) {
         this.menuId = menuId;
+    }
+
+    @XmlTransient
+    public Set<OrderItems> getOrderItemsSet() {
+        return orderItemsSet;
+    }
+
+    public void setOrderItemsSet(Set<OrderItems> orderItemsSet) {
+        this.orderItemsSet = orderItemsSet;
     }
 
     @Override
@@ -119,6 +126,14 @@ public class MenuItems implements Serializable {
     @Override
     public String toString() {
         return "com.hd.pojo.MenuItems[ id=" + id + " ]";
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
     
 }

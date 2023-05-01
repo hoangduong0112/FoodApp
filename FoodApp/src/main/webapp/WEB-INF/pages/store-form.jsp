@@ -10,6 +10,7 @@
 <c:url value="/admin/stores" var="action"/>
 <h5 class=" mt-4">Product Form</h5>
 <form:form method="post" action="${action}" modelAttribute="store" enctype="multipart/form-data">
+    <form:errors path="*" element="div" cssClass="alert alert-danger"/>
     <div class="form-floating mb-3">
         <form:input type="text" class="form-control" id="name" placeholder="Tên cửa hàng" name="name" path="name"/>
         <label for="name">Tên cửa hàng:</label>

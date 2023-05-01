@@ -10,7 +10,10 @@
 <html lang="en">
 
     <head>
-        <meta charset="utf-8">
+        <meta content="text/html;charset=utf-8"
+              http-equiv="Content-Type"/>
+        <meta content="utf-8"
+              http-equiv="encoding"/>
         <title></title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">

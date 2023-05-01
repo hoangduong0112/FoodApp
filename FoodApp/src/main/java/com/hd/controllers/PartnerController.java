@@ -9,13 +9,18 @@ import com.hd.pojo.MenuItems;
 import com.hd.pojo.Store;
 import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
+import com.hd.service.StatsService;
 import com.hd.service.StoreService;
 import com.hd.service.UserService;
 import java.security.Principal;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -43,6 +49,9 @@ public class PartnerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StatsService statsService;
 
     @ModelAttribute
     public void commonAttribute(Model model, Principal p) {
@@ -120,15 +129,29 @@ public class PartnerController {
     public String editStoreForm(Model model, Principal p) {
         return "edit-store";
     }
-    
+
     @RequestMapping("/my-store/edit/{storeId}")
     public String editStore(Model model, @ModelAttribute(value = "myStore") Store s, @PathVariable(value = "storeId") int id, Principal p) {
         s.setUserId(this.userService.getUserByUsername(p.getName()));
-        if(this.storeService.addOrUpdate(s) == true) {
+        if (this.storeService.addOrUpdate(s) == true) {
             return "redirect:/partner/my-store";
-        } 
+        }
         return "my-store";
     }
 
+    @RequestMapping("/stats")
+    public String stats(Model model, Principal p, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "fromDate", required = false) Date fromDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "toDate", required = false) Date toDate) {
+        Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
+        //    @DateTimeFormat(pattern = "")
+        model.addAttribute("revenues", this.statsService.getSalesStatsByMenuAndYear(s.getId(), fromDate, toDate));
+        return "chartOverall";
+    }
+    
+    @RequestMapping("/stats/{menuId}")
+    public String stats(Model model, @PathVariable(value = "menuId") int id, Principal p, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "fromDate", required = false) Date fromDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "toDate", required = false) Date toDate) {
+        model.addAttribute("menuId", id);
+        model.addAttribute("revenues", this.statsService.getSalesStatsByItemsAndYear(id, fromDate, toDate));
+        return "chartMenu";
+    }
 
 }

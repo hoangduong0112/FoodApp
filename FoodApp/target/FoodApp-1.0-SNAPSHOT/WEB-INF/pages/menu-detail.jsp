@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<c:url value="/api/cart" var="endpoint" />
 <div class="row px-xl-5 justify-content-center">
     <div class="col-lg-5 pb-5">
 
@@ -39,37 +39,36 @@
     </div>        
 </div>
 <div class="row px-xl-5 justify-content-center">
-    <div class="col-lg-5 pb-5">
-<c:forEach items="${menus}" var="menu">
-            <h2>${menu.name}</h2>
-            <ul>
-                <c:forEach items="${menuItemsList}" var="items">
-                    <c:if test="${items[0].menuId.id == menu.id}">
-                        <c:forEach items="${items}" var="item">
-                            <li>${item.name} - ${item.price}</li>
-                            </c:forEach>
-                        </c:if>
-                    </c:forEach>
-            </ul>
-        </c:forEach>
-
-    </div>
-    <div class="col-lg-5 pb-5">
+    <div class="col-lg-8 pb-5">
         <c:forEach items="${menus}" var="menu">
-            <h2>${menu.name}</h2>
-            <ul>
-                <c:forEach items="${menuItemsList}" var="items">
-                    <c:if test="${items[0].menuId.id == menu.id}">
-                        <c:forEach items="${items}" var="item">
-                            <li>${item.name} - ${item.price}</li>
-                            </c:forEach>
-                        </c:if>
-                    </c:forEach>
-            </ul>
+            <h4>>${menu.name}</h4>
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${menuItemsList}" var="items">
+                            <c:if test="${items[0].menuId.id == menu.id}">
+                                <c:forEach items="${items}" var="item">
+                                    <tr>
+                                        <td style="width: 50%;">${item.name}</td>
+                                        <td style="width: 30%;">${item.price}đ</td>
+                                        <td style="width: 20%;">
+                                            <a href="javascript:;" onclick="addToCart('${endpoint}', ${item.id}, '${item.name}', ${item.price})" class="btn-sm btn-primary rounded">Add to cart</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </c:forEach>
     </div>
 </div>
-
-
-
-
+<script src="<c:url value="/js/cart.js" />"></script>

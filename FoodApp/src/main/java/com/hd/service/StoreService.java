@@ -21,9 +21,12 @@ public interface StoreService {
     String getName(int id);
 
     boolean addOrUpdate(Store p);
-    
+
     Store getStoreByUserId(int id);
+
+    boolean deteleStore(int id);
+
+    boolean doesStoreExistByUserId(int userId);
     
-     boolean deteleStore(int id);
-    
+    boolean existByName(String name);
 }

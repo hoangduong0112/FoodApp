@@ -14,28 +14,27 @@ var removeSpinner = function () {
 
 removeSpinner()
 function deleteStore(endpoint, id) {
-    document.getElementById('#spinner').style.display = "block";
+    $('#spinner').show();
     fetch(endpoint, {
         method: 'delete'
     })
             .then(response => {
-
+                $('#spinner').hide();
                 if (response.status === 204) {
                     document.getElementById(`store${id}`).style.display = "none";
                     alert("Xóa thành công")
-                    document.getElementById('#spinner').style.display = "none";
-
                 } else {
                     alert("Xóa thất bại")
                 }
             });
 }
 function deleteMenu(endpoint, id) {
+    $('#spinner').show();
     fetch(endpoint, {
         method: 'delete'
     })
             .then(response => {
-                console.log(response)
+                $('#spinner').hide();
                 if (response.status === 204) {
                     document.getElementById(`menu${id}`).style.display = "none";
                     alert("Xóa thành công")
@@ -48,16 +47,17 @@ function deleteMenu(endpoint, id) {
             .catch(error => {
                 if (error.response && error.response.status === 400) {
                     alert(error.response.data.message);
-                } 
+                }
             });
 }
 
 function deleteMenuItem(endpoint, id) {
+    $('#spinner').show();
     fetch(endpoint, {
         method: 'delete'
     })
             .then(response => {
-                console.log(response)
+                $('#spinner').hide();
                 if (response.status === 204) {
                     document.getElementById(`item${id}`).style.display = "none";
                     alert("Xóa thành công")

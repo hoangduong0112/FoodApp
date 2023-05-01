@@ -19,9 +19,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -35,12 +37,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByHoten", query = "SELECT u FROM User u WHERE u.hoten = :hoten"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
     @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")})
 public class User implements Serializable {
+
+    @OneToMany(mappedBy = "userId")
+    private Set<Store> storeSet;
+    @OneToMany(mappedBy = "userId")
+    private Set<OrderSale> orderSaleSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,10 +62,14 @@ public class User implements Serializable {
     @Size(max = 100)
     @Column(name = "password")
     private String password;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 45)
+    @Column(name = "email")
+    private String email;
     @Size(max = 45)
     @Column(name = "hoten")
     private String hoten;
-    @Size(max = 45)
+    @Size(max = 100)
     @Column(name = "avatar")
     private String avatar;
     @Size(max = 45)
@@ -68,9 +80,11 @@ public class User implements Serializable {
     @Column(name = "last_login")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
-    @OneToMany(mappedBy = "userId")
-    private Set<Store> storeSet;
-
+    
+    @Transient
+    private String confirmPassword;
+    @Transient
+    private MultipartFile file;
     public User() {
     }
 
@@ -100,6 +114,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getHoten() {
@@ -142,15 +164,6 @@ public class User implements Serializable {
         this.lastLogin = lastLogin;
     }
 
-    @XmlTransient
-    public Set<Store> getStoreSet() {
-        return storeSet;
-    }
-
-    public void setStoreSet(Set<Store> storeSet) {
-        this.storeSet = storeSet;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -174,6 +187,52 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.hd.pojo.User[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    @XmlTransient
+    public Set<Store> getStoreSet() {
+        return storeSet;
+    }
+
+    public void setStoreSet(Set<Store> storeSet) {
+        this.storeSet = storeSet;
+    }
+
+    @XmlTransient
+    public Set<OrderSale> getOrderSaleSet() {
+        return orderSaleSet;
+    }
+
+    public void setOrderSaleSet(Set<OrderSale> orderSaleSet) {
+        this.orderSaleSet = orderSaleSet;
     }
     
 }

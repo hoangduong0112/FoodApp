@@ -4,6 +4,7 @@
  */
 package com.hd.pojo;
 
+import com.hd.validation.StoreName;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -45,20 +47,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Store.findByLastUpdate", query = "SELECT s FROM Store s WHERE s.lastUpdate = :lastUpdate")})
 public class Store implements Serializable {
 
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,26 +54,30 @@ public class Store implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @NotNull(message = "{store.name.null}")
+    @Size(min = 1, max = 100, message = "{store.name.length}")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 120)
+    @NotNull(message = "{store.address.null}")
+    @Size(min = 1, max = 120, message = "{store.address.lenerr}")
     @Column(name = "address")
     private String address;
     @Size(max = 15)
+    @NotNull(message = "{store.sdt.null}")
     @Column(name = "sdt")
     private String sdt;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "image")
     private String image;
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+    @OneToMany(mappedBy = "storeId")
+    private Set<Comments> commentsSet;
+    @OneToMany(mappedBy = "storeId")
+    private Set<Follows> followsSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private Category categoryId;
@@ -160,6 +152,24 @@ public class Store implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
+    @XmlTransient
+    public Set<Comments> getCommentsSet() {
+        return commentsSet;
+    }
+
+    public void setCommentsSet(Set<Comments> commentsSet) {
+        this.commentsSet = commentsSet;
+    }
+
+    @XmlTransient
+    public Set<Follows> getFollowsSet() {
+        return followsSet;
+    }
+
+    public void setFollowsSet(Set<Follows> followsSet) {
+        this.followsSet = followsSet;
+    }
+
     public Category getCategoryId() {
         return categoryId;
     }
@@ -208,6 +218,20 @@ public class Store implements Serializable {
     @Override
     public String toString() {
         return "com.hd.pojo.Store[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
 }

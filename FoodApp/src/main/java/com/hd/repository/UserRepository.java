@@ -15,4 +15,5 @@ public interface UserRepository {
 
     User getUserByUsername(String username);
     List<User> getUsers();
+    boolean saveUser(User u);
 }
