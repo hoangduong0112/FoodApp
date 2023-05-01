@@ -139,6 +139,7 @@ public class PartnerController {
         return "my-store";
     }
 
+
     @RequestMapping("/stats")
     public String stats(Model model, Principal p, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "fromDate", required = false) Date fromDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "toDate", required = false) Date toDate) {
         Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());

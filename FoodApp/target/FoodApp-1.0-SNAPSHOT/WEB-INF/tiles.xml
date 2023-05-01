@@ -81,6 +81,8 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/store-form.jsp" />
     </definition>
     
+
+    
     <definition name="edit-store" extends="baseAdminLayout">
         <put-attribute name="title" value="Chỉnh sửa" />
         <put-attribute name="AdminContent"

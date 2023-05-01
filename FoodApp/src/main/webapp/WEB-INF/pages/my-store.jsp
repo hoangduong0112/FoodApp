@@ -34,7 +34,7 @@
             <c:url value="/partner/my-store" var="addmenu"/>
 
             <div class="modal fade" id="AddNewMenu" tabindex="-1" aria-labelledby="addMenuLabel" aria-hidden="true">
-                <form:form method="post" action="${addmenu}" modelAttribute="menu"  accept-charset="UTF-8">
+                <form:form method="post" action="${addmenu}" modelAttribute="menu"  accept-charset="UTF-8" enctype="multipart/form-data">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -63,7 +63,7 @@
             <a href="javascript:;" class="mx-3" data-bs-toggle="modal" data-bs-target="#addItem">Thêm 1 sản phẩm cho Menu ${menu.name}</a>
             <!-- Modal -->
             <c:url value="/partner/my-store/item" var="additem" />
-            <form:form method="post" action="${additem}" modelAttribute="item" >
+            <form:form method="post" action="${additem}" modelAttribute="item" enctype="multipart/form-data">
                 <div class="modal fade" id="addItem" tabindex="-1" aria-labelledby="AddItemLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -154,7 +154,7 @@
                         <a href="javascript:;" class="mx-3" data-bs-toggle="modal" data-bs-target="#UpdateMenu${menu.id}">Chỉnh sửa Menu</a>
                         <!-- Modal -->
                         <c:url value="/partner/my-store/${menu.id}" var="updatemenu"/>
-                        <form:form method="post" action="${updatemenu}" modelAttribute="menu" >
+                        <form:form method="post" action="${updatemenu}" modelAttribute="menu" enctype="multipart/form-data" >
                             <div class="modal fade" id="UpdateMenu${menu.id}" tabindex="-1" aria-labelledby="UpdateMenuLabel${menu.id}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -210,7 +210,7 @@
                                                     <a href="javascript:;" class="mx-3 btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateItem${item.id}">Detail</a>
                                                     <!-- Modal -->
                                                     <c:url value="/partner/my-store/item/${item.id}" var="updateitem" />
-                                                    <form:form method="post" action="${updateitem}" modelAttribute="item" >
+                                                    <form:form method="post" action="${updateitem}" modelAttribute="item" enctype="multipart/form-data" >
                                                         <div class="modal fade" id="updateItem${item.id}" tabindex="-1" aria-labelledby="UpdateItemLabel${item.id}" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">

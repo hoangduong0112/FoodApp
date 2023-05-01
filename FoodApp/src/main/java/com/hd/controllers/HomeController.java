@@ -15,6 +15,7 @@ import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
 import com.hd.service.OrderItemService;
 import com.hd.service.OrderSaleService;
+import com.hd.service.SecurityService;
 import com.hd.service.StoreService;
 import com.hd.service.UserService;
 import com.hd.utils.Utils;
@@ -65,6 +66,10 @@ public class HomeController {
 
     @Autowired
     private OrderItemService orderItemService;
+
+    @Autowired
+    private SecurityService securityService;
+
     @ModelAttribute
     public void commonAttribute(Model model, HttpSession session) {
         List<Category> p = this.categoryService.getCategories();
@@ -114,7 +119,8 @@ public class HomeController {
         String errorMessage = "";
         if (user.getPassword().equals(user.getConfirmPassword())) {
             if (this.userService.saveUser(user) == true) {
-                return "redirect:/login";
+                securityService.autologin(user.getUsername(), user.getConfirmPassword());
+                return "redirect:/";
             } else {
                 errorMessage = "Đã có lỗi xảy ra!";
             }
@@ -133,7 +139,7 @@ public class HomeController {
         return "cart";
     }
 
-    @GetMapping(path="/checkout/{id}")
+    @GetMapping(path = "/checkout/{id}")
     public String checkout(@PathVariable(value = "id") int id, Model model) {
         model.addAttribute("orderSale", this.orderSaleService.getOrderById(id));
         model.addAttribute("items", this.orderItemService.getOrderItemsByOrderId(id));
