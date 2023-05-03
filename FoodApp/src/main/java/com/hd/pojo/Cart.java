@@ -26,8 +26,6 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    
-    
     /**
      * @return the id
      */
@@ -83,5 +81,4 @@ public class Cart {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
 }

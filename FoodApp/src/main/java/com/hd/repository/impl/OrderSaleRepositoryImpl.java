@@ -5,6 +5,7 @@
 package com.hd.repository.impl;
 
 import com.hd.pojo.Cart;
+import com.hd.pojo.ItemsOrderStatus;
 import com.hd.pojo.OrderItems;
 import com.hd.pojo.OrderSale;
 import com.hd.repository.MenuItemsRepository;
@@ -53,6 +54,7 @@ public class OrderSaleRepositoryImpl implements OrderSaleRepository {
                 d.setQuantity(c.getQuantity());
                 d.setOrderId(sale);
                 d.setItemId(this.itemRepository.getItem(c.getId()));
+                d.setStatus(String.valueOf(ItemsOrderStatus.WAITING));
                 s.save(d);
 
             }

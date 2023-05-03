@@ -4,7 +4,6 @@
  */
 package com.hd.pojo;
 
-import com.hd.validation.StoreName;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -23,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -47,6 +45,20 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Store.findByLastUpdate", query = "SELECT s FROM Store s WHERE s.lastUpdate = :lastUpdate")})
 public class Store implements Serializable {
 
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,20 +66,20 @@ public class Store implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull(message = "{store.name.null}")
-    @Size(min = 1, max = 100, message = "{store.name.length}")
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull(message = "{store.address.null}")
-    @Size(min = 1, max = 120, message = "{store.address.lenerr}")
+    @NotNull
+    @Size(min = 1, max = 120)
     @Column(name = "address")
     private String address;
     @Size(max = 15)
-    @NotNull(message = "{store.sdt.null}")
     @Column(name = "sdt")
     private String sdt;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "image")
     private String image;
@@ -89,7 +101,6 @@ public class Store implements Serializable {
 
     @Transient
     private MultipartFile file;
-
     public Store() {
     }
 
@@ -219,19 +230,5 @@ public class Store implements Serializable {
     public String toString() {
         return "com.hd.pojo.Store[ id=" + id + " ]";
     }
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
+    
 }

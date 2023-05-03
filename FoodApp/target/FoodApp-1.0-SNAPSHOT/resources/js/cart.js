@@ -82,8 +82,8 @@ function pay(endpoint) {
             let counters = document.getElementsByClassName("cart-counter");
             for (let d of counters)
                 d.innerText = 0;
-            res.text().then(text => {
-                window.location.href = "/checkout/" + text;
+             res.text().then(url => {
+                window.location.href = url;
             });
         }
     })

@@ -37,9 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MenuItems.findByPrice", query = "SELECT m FROM MenuItems m WHERE m.price = :price")})
 public class MenuItems implements Serializable {
 
-    @Column(name = "price")
-    private Long price;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +48,8 @@ public class MenuItems implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
+    @Column(name = "price")
+    private Long price;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne
     private Menu menuId;
@@ -85,6 +84,13 @@ public class MenuItems implements Serializable {
         this.name = name;
     }
 
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
 
     public Menu getMenuId() {
         return menuId;
@@ -126,14 +132,6 @@ public class MenuItems implements Serializable {
     @Override
     public String toString() {
         return "com.hd.pojo.MenuItems[ id=" + id + " ]";
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
     }
     
 }

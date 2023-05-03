@@ -7,14 +7,18 @@ package com.hd.controllers;
 import com.hd.pojo.Cart;
 import com.hd.service.MenuItemsService;
 import com.hd.service.OrderSaleService;
+import com.hd.handler.MailHandler;
 import com.hd.utils.Utils;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +40,9 @@ public class ApiCartController {
     @Autowired
     private OrderSaleService orderSaleService;
 
+
+    @Autowired
+    private MailHandler mailHandler;
     @PostMapping(value = "/cart")
     public ResponseEntity<Map<String, String>> addToCart(@RequestBody Cart c, HttpSession session) {
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
@@ -80,15 +87,21 @@ public class ApiCartController {
 
         return new ResponseEntity<>(Utils.cartStats(cart), HttpStatus.OK);
     }
-    
+
     @PostMapping("/pay")
-    public ResponseEntity pay(HttpSession session) {
-        int result = this.orderSaleService.addOrderSale((Map<String, Cart>) session.getAttribute("cart"));
-        if (result > 0) {
+    public ResponseEntity<String> pay(HttpSession session) throws MessagingException {
+        int orderId = this.orderSaleService.addOrderSale((Map<String, Cart>) session.getAttribute("cart"));
+        if (orderId > 0) {
             session.removeAttribute("cart");
-            return new ResponseEntity(result,HttpStatus.OK);
+            if (this.mailHandler.sendOrderConfirmation(orderId)) {
+                String url = "/FoodApp/checkout/" + orderId;
+                return ResponseEntity.ok(url);
+            }
+            String url = "/FoodApp/checkout/" + orderId;
+            return ResponseEntity.ok(url);
+
         }
-        
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        return ResponseEntity.badRequest().build();
     }
 }

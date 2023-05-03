@@ -13,4 +13,7 @@ import java.util.List;
  */
 public interface OrderItemService {
     List<OrderItems> getOrderItemsByOrderId(int orderId);
+    List<OrderItems> getOrderItemsByStoreId(int storeId, String status);
+    OrderItems getOrderById(int id);
+    Boolean acceptStatus(int i);
 }

@@ -45,10 +45,33 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")})
 public class User implements Serializable {
 
-    @OneToMany(mappedBy = "userId")
-    private Set<Store> storeSet;
-    @OneToMany(mappedBy = "userId")
-    private Set<OrderSale> orderSaleSet;
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,11 +103,20 @@ public class User implements Serializable {
     @Column(name = "last_login")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
-    
+    @OneToMany(mappedBy = "userId")
+    private Set<Comments> commentsSet;
+    @OneToMany(mappedBy = "userId")
+    private Set<Follows> followsSet;
+    @OneToMany(mappedBy = "userId")
+    private Set<Store> storeSet;
+    @OneToMany(mappedBy = "userId")
+    private Set<OrderSale> orderSaleSet;
+
     @Transient
     private String confirmPassword;
     @Transient
     private MultipartFile file;
+
     public User() {
     }
 
@@ -164,6 +196,42 @@ public class User implements Serializable {
         this.lastLogin = lastLogin;
     }
 
+    @XmlTransient
+    public Set<Comments> getCommentsSet() {
+        return commentsSet;
+    }
+
+    public void setCommentsSet(Set<Comments> commentsSet) {
+        this.commentsSet = commentsSet;
+    }
+
+    @XmlTransient
+    public Set<Follows> getFollowsSet() {
+        return followsSet;
+    }
+
+    public void setFollowsSet(Set<Follows> followsSet) {
+        this.followsSet = followsSet;
+    }
+
+    @XmlTransient
+    public Set<Store> getStoreSet() {
+        return storeSet;
+    }
+
+    public void setStoreSet(Set<Store> storeSet) {
+        this.storeSet = storeSet;
+    }
+
+    @XmlTransient
+    public Set<OrderSale> getOrderSaleSet() {
+        return orderSaleSet;
+    }
+
+    public void setOrderSaleSet(Set<OrderSale> orderSaleSet) {
+        this.orderSaleSet = orderSaleSet;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -189,50 +257,4 @@ public class User implements Serializable {
         return "com.hd.pojo.User[ id=" + id + " ]";
     }
 
-    /**
-     * @return the confirmPassword
-     */
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    /**
-     * @param confirmPassword the confirmPassword to set
-     */
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
-    @XmlTransient
-    public Set<Store> getStoreSet() {
-        return storeSet;
-    }
-
-    public void setStoreSet(Set<Store> storeSet) {
-        this.storeSet = storeSet;
-    }
-
-    @XmlTransient
-    public Set<OrderSale> getOrderSaleSet() {
-        return orderSaleSet;
-    }
-
-    public void setOrderSaleSet(Set<OrderSale> orderSaleSet) {
-        this.orderSaleSet = orderSaleSet;
-    }
-    
 }

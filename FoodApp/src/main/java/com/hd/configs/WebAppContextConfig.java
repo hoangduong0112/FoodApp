@@ -12,13 +12,19 @@ import com.hd.formatter.MenuFormatter;
 import com.hd.formatter.UserFormatter;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -41,7 +47,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     "com.hd.service",
     "com.hd.validator"
 })
+@PropertySource("classpath:mail.properties")
 public class WebAppContextConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private Environment env;
 
     @Override
     public void configureDefaultServletHandling(
@@ -103,7 +113,4 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new MenuFormatter());
         registry.addFormatter(new LocalDateFormatter());
     }
-    
-    
-
 }

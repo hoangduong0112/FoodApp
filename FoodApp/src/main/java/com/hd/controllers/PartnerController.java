@@ -6,9 +6,11 @@ package com.hd.controllers;
 
 import com.hd.pojo.Menu;
 import com.hd.pojo.MenuItems;
+import com.hd.pojo.OrderItems;
 import com.hd.pojo.Store;
 import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
+import com.hd.service.OrderItemService;
 import com.hd.service.StatsService;
 import com.hd.service.StoreService;
 import com.hd.service.UserService;
@@ -21,12 +23,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,6 +54,9 @@ public class PartnerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderItemService orderItemService;
 
     @Autowired
     private StatsService statsService;
@@ -139,7 +147,6 @@ public class PartnerController {
         return "my-store";
     }
 
-
     @RequestMapping("/stats")
     public String stats(Model model, Principal p, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "fromDate", required = false) Date fromDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "toDate", required = false) Date toDate) {
         Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
@@ -147,12 +154,30 @@ public class PartnerController {
         model.addAttribute("revenues", this.statsService.getSalesStatsByMenuAndYear(s.getId(), fromDate, toDate));
         return "chartOverall";
     }
-    
+
     @RequestMapping("/stats/{menuId}")
     public String stats(Model model, @PathVariable(value = "menuId") int id, Principal p, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "fromDate", required = false) Date fromDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "toDate", required = false) Date toDate) {
         model.addAttribute("menuId", id);
         model.addAttribute("revenues", this.statsService.getSalesStatsByItemsAndYear(id, fromDate, toDate));
         return "chartMenu";
     }
+
+    @GetMapping("/order")
+    public String orderList(@RequestParam(required = false) String status, Model model, Principal p) {
+        Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
+        List<OrderItems> orderItems = this.orderItemService.getOrderItemsByStoreId(s.getId(), status);
+        model.addAttribute("orderItems", orderItems);
+        model.addAttribute("status", status);
+        return "order-items";
+    }
+
+//    @PutMapping("/order/accept/{itemId}")
+//    public ResponseEntity<Void> updateOrderItemStatus(@PathVariable("itemId") int id) {
+//        if (this.orderItemService.acceptStatus(id)) {
+//            return ResponseEntity.ok().build();
+//        } else {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
 }

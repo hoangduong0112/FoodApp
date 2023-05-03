@@ -24,5 +24,22 @@ public class OrderItemServiceImpl implements OrderItemService{
     public List<OrderItems> getOrderItemsByOrderId(int orderId) {
         return this.orderItemRepository.getOrderItemsByOrderId(orderId);
     }
+
+    @Override
+    public List<OrderItems> getOrderItemsByStoreId(int storeId, String status) {
+        return this.orderItemRepository.getOrderItemsByStoreId(storeId, status);
+    }
+
+    @Override
+    public OrderItems getOrderById(int id) {
+        return this.orderItemRepository.getOrderById(id);
+    }
+
+    @Override
+    public Boolean acceptStatus(int i) {
+        return this.orderItemRepository.acceptStatus(i);
+    }
+    
+    
     
 }

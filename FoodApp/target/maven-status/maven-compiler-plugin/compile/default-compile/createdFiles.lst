@@ -13,6 +13,7 @@ com\hd\service\impl\StoreServiceImpl.class
 com\hd\pojo\User.class
 com\hd\repository\StatsRepository.class
 com\hd\configs\DispatcherServletInit.class
+com\hd\handler\MailHandler.class
 com\hd\validation\StoreName.class
 com\hd\pojo\Comments.class
 com\hd\configs\TilesConfig.class
@@ -30,6 +31,8 @@ com\hd\repository\impl\UserRepositoryImpl.class
 com\hd\service\impl\MenuItemsServiceImpl.class
 com\hd\validation\impl\StoreNameValidator.class
 com\hd\pojo\Menu_.class
+com\hd\service\impl\SecurityServiceImpl.class
+com\hd\controllers\ApiOrderItemsController.class
 com\hd\service\StoreService.class
 com\hd\repository\UserRepository.class
 com\hd\controllers\ApiCartController.class
@@ -41,12 +44,14 @@ com\hd\pojo\Store.class
 com\hd\service\impl\OrderItemServiceImpl.class
 com\hd\pojo\Cart.class
 com\hd\configs\SecurityWebApplicationInitializer.class
+com\hd\configs\MailConfig.class
 com\hd\repository\impl\MenuItemsRepositoryImpl.class
 com\hd\repository\impl\StatsRepositoryImpl.class
 com\hd\pojo\OrderItems_.class
 com\hd\service\impl\UserServiceImpl.class
 com\hd\repository\MenuRepository.class
 com\hd\controllers\ApiMenuController.class
+com\hd\pojo\ItemsOrderStatus.class
 com\hd\pojo\OrderItems.class
 com\hd\repository\impl\MenuRepositoryImpl.class
 com\hd\pojo\MenuItems_.class
@@ -59,6 +64,7 @@ com\hd\pojo\User_.class
 com\hd\formatter\MenuFormatter.class
 com\hd\repository\OrderSaleRepository.class
 com\hd\controllers\ApiStoreController.class
+com\hd\service\SecurityService.class
 com\hd\controllers\ApiMenuItemController.class
 com\hd\service\CategoryService.class
 com\hd\service\impl\MenuServiceImpl.class

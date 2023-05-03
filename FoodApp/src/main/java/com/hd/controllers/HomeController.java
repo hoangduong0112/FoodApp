@@ -8,6 +8,8 @@ import com.hd.pojo.Cart;
 import com.hd.pojo.Category;
 import com.hd.pojo.Menu;
 import com.hd.pojo.MenuItems;
+import com.hd.pojo.OrderItems;
+import com.hd.pojo.OrderSale;
 import com.hd.pojo.Store;
 import com.hd.pojo.User;
 import com.hd.service.CategoryService;
@@ -139,10 +141,12 @@ public class HomeController {
         return "cart";
     }
 
-    @GetMapping(path = "/checkout/{id}")
-    public String checkout(@PathVariable(value = "id") int id, Model model) {
-        model.addAttribute("orderSale", this.orderSaleService.getOrderById(id));
-        model.addAttribute("items", this.orderItemService.getOrderItemsByOrderId(id));
+    @GetMapping("/checkout/{id}")
+    public String checkout(@PathVariable("id") int orderId, Model model) {
+        OrderSale yourOrder = this.orderSaleService.getOrderById(orderId);
+        List<OrderItems> items = this.orderItemService.getOrderItemsByOrderId(yourOrder.getId());
+        model.addAttribute("result", yourOrder);
+        model.addAttribute("items", items);
         return "checkout";
     }
 }
