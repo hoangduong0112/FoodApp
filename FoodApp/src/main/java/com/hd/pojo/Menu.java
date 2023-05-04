@@ -43,8 +43,8 @@ public class Menu implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @NotNull(message = "{menu.name.null}")
+    @Size(min = 1, max = 45, message = "{menu.name.length}")
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "menuId")

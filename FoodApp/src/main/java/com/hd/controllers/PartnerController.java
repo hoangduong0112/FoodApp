@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,6 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,7 +84,10 @@ public class PartnerController {
     }
 
     @RequestMapping("/my-store")
-    public String addMenu(Model model, @ModelAttribute(value = "menu") Menu m, Principal p) {
+    public String addMenu(Model model, @ModelAttribute(value = "menu") @Valid Menu m, Principal p, BindingResult rs) {
+        if (rs.hasErrors()) {
+            return "my-store";
+        }
         Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
         m.setStoreId(s);
         if (this.menuService.addOrUpdate(m) == true) {
@@ -95,7 +100,10 @@ public class PartnerController {
     }
 
     @RequestMapping("/my-store/{menuId}")
-    public String UpdateMenu(Model model, @ModelAttribute(value = "menu") Menu m, @PathVariable(value = "menuId") int id, Principal p) {
+    public String UpdateMenu(Model model, @ModelAttribute(value = "menu") @Valid Menu m, @PathVariable(value = "menuId") int id, Principal p, BindingResult rs) {
+        if (rs.hasErrors()) {
+            return "my-store";
+        }
         Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
         m.setStoreId(s);
         m.setId(id);
@@ -171,13 +179,26 @@ public class PartnerController {
         return "order-items";
     }
 
-//    @PutMapping("/order/accept/{itemId}")
-//    public ResponseEntity<Void> updateOrderItemStatus(@PathVariable("itemId") int id) {
-//        if (this.orderItemService.acceptStatus(id)) {
-//            return ResponseEntity.ok().build();
-//        } else {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    @RequestMapping("/order/{itemId}/accept")
+    public String AcceptOrderItem(Model model, @PathVariable(value = "itemId") int id) {
+        if (this.orderItemService.updateStatusAccept(id)) {
+            return "redirect:/partner/order";
+        } else {
+            model.addAttribute("errMsg", "Something wrong!");
+        }
 
+        return "order-items";
+    }
+    
+    @RequestMapping("/order/{itemId}/decline")
+    public String DeclineOrderItem(Model model, @PathVariable(value = "itemId") int id) {
+        if (this.orderItemService.updateStatusDecline(id)) {
+            return "redirect:/partner/order";
+        } else {
+            model.addAttribute("errMsg", "Something wrong!");
+        }
+
+        return "order-items";
+    }
+    
 }

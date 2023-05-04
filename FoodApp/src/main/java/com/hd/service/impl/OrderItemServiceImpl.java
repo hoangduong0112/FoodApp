@@ -36,8 +36,13 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
-    public Boolean acceptStatus(int i) {
-        return this.orderItemRepository.acceptStatus(i);
+    public Boolean updateStatusAccept(int itemId) {
+        return this.orderItemRepository.updateStatusAccept(itemId);
+    }
+
+    @Override
+    public Boolean updateStatusDecline(int itemId) {
+        return this.orderItemRepository.updateStatusDecline(itemId);
     }
     
     

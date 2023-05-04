@@ -50,6 +50,8 @@ public class MenuRepositoryImpl implements MenuRepository {
     @Override
     public boolean deleteMenu(int id) {
         Menu m = this.getMenuById(id);
+        
+        //Cascade chưa set
         Session s = this.factory.getObject().getCurrentSession();
         try {
             s.delete(m);

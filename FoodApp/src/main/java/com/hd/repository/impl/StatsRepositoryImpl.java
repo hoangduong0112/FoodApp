@@ -5,6 +5,7 @@
 package com.hd.repository.impl;
 
 import com.hd.pojo.Category;
+import com.hd.pojo.ItemsOrderStatus;
 import com.hd.pojo.Menu;
 import com.hd.pojo.MenuItems;
 import com.hd.pojo.OrderItems;
@@ -61,6 +62,7 @@ public class StatsRepositoryImpl implements StatsRepository {
         predicates.add(b.equal(rootIM.get("menuId"), rootMenu.get("id")));
         predicates.add(b.equal(rootI.get("itemId"), rootIM.get("id")));
         predicates.add(b.equal(rootI.get("orderId"), rootO.get("id")));
+        predicates.add(b.equal(rootI.get("status"), String.valueOf(ItemsOrderStatus.ACCEPT)));
 
         q.multiselect(rootMenu.get("id"), rootMenu.get("name"),
                 b.sum(b.prod(rootI.get("quantity"), rootIM.get("price"))));
@@ -101,6 +103,7 @@ public class StatsRepositoryImpl implements StatsRepository {
         predicates.add(b.equal(rootIM.get("menuId"), menuId));
         predicates.add(b.equal(rootI.get("itemId"), rootIM.get("id")));
         predicates.add(b.equal(rootI.get("orderId"), rootO.get("id")));
+        predicates.add(b.equal(rootI.get("status"), String.valueOf(ItemsOrderStatus.ACCEPT)));
 
         q.multiselect(rootIM.get("id"), rootIM.get("name"),
                 b.sum(b.prod(rootI.get("quantity"), rootIM.get("price"))));
@@ -170,12 +173,13 @@ public class StatsRepositoryImpl implements StatsRepository {
         predicates.add(b.equal(rootMenu.get("storeId"), rootStore.get("id")));
         predicates.add(b.equal(rootMenuItems.get("menuId"), rootMenu.get("id")));
         predicates.add(b.equal(rootOrderItem.get("itemId"), rootMenuItems.get("id")));
+        predicates.add(b.equal(rootOrderItem.get("status"), String.valueOf(ItemsOrderStatus.ACCEPT)));
         predicates.add(b.equal(rootOrderItem.get("orderId"), rootOrder.get("id")));
 
         Predicate[] predicateArray = new Predicate[predicates.size()];
         predicateArray = predicates.toArray(predicateArray);
         q.where(predicateArray);
-        
+
         q.multiselect(rootStore.get("id"), rootStore.get("name"),
                 b.sum(b.prod(rootOrderItem.get("quantity"), rootMenuItems.get("price"))));
         q.groupBy(rootStore.get("id"));

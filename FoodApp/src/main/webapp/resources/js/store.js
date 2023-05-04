@@ -67,22 +67,6 @@ function deleteMenuItem(endpoint, id) {
                 }
             });
 }
-function addMenu() {
-    var menuName = $("#MenuName").val();
-    $.ajax({
-        type: "POST",
-        url: "/api/menu/",
-        data: JSON.stringify(menuName),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            alert("Menu added successfully!");
-        },
-        error: function (xhr, status, error) {
-            alert("Error adding menu: " + error);
-        }
-    });
-}
 
 
 

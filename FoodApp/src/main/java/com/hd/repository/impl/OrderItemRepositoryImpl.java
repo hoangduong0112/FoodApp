@@ -78,12 +78,26 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     }
 
     @Override
-    public Boolean acceptStatus(int i) {
+    public Boolean updateStatusAccept(int itemId) {
         Session s = this.factory.getObject().getCurrentSession();
+        OrderItems item = this.getOrderById(itemId);
         try {
-            OrderItems item = this.getOrderById(i);
             item.setStatus(String.valueOf(ItemsOrderStatus.ACCEPT));
-            s.save(item);
+            s.update(item);
+            return true;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean updateStatusDecline(int itemId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        OrderItems item = this.getOrderById(itemId);
+        try {
+            item.setStatus(String.valueOf(ItemsOrderStatus.DECLINE));
+            s.update(item);
             return true;
         } catch (HibernateException e) {
             e.printStackTrace();

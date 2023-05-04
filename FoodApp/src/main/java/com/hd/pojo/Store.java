@@ -66,20 +66,20 @@ public class Store implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @NotNull(message = "{store.name.null}")
+    @Size(min = 1, max = 100, message = "{store.name.length}")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 120)
+    @NotNull(message = "{store.address.null}")
+    @Size(min = 1, max = 120,  message = "{store.address.length}")
     @Column(name = "address")
     private String address;
-    @Size(max = 15)
+    @NotNull(message = "{store.sdt.null}")
+    @Size(max = 15, message="{store.sdt.length}")
     @Column(name = "sdt")
     private String sdt;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "image")
     private String image;

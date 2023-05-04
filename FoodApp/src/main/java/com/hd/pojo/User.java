@@ -41,8 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByHoten", query = "SELECT u FROM User u WHERE u.hoten = :hoten"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
-    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
-    @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")})
+    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
 public class User implements Serializable {
 
     /**
@@ -100,9 +99,6 @@ public class User implements Serializable {
     private String userRole;
     @Column(name = "active")
     private Boolean active;
-    @Column(name = "last_login")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastLogin;
     @OneToMany(mappedBy = "userId")
     private Set<Comments> commentsSet;
     @OneToMany(mappedBy = "userId")
@@ -186,14 +182,6 @@ public class User implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public Date getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
     }
 
     @XmlTransient
