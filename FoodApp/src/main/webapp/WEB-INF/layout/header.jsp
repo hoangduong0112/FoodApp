@@ -121,7 +121,7 @@
                             <c:when test="${pageContext.request.userPrincipal.name != null}">
                                 <a href="javascript:;" class="nav-link">
                                     <img class="rounded-circle me-lg-2" src="${pageContext.session.getAttribute("currentUser").avatar}" alt="" style="width: 40px; height: 40px;">
-                                    <span class="d-none d-lg-inline-flex">John Doe</span>
+                                    <span class="d-none d-lg-inline-flex">${pageContext.session.getAttribute("currentUser").hoten}</span>
                                 </a>
                                 <a href="<c:url value="/logout" />" class="nav-item nav-link">Log out</a>
                             </c:when>

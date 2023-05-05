@@ -80,6 +80,16 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="AdminContent"
                        value="/WEB-INF/pages/store-form.jsp" />
     </definition>
+    <definition name="menu-form" extends="baseAdminLayout">
+        <put-attribute name="title" value="Menu" />
+        <put-attribute name="AdminContent"
+                       value="/WEB-INF/pages/menu-form.jsp" />
+    </definition>
+    <definition name="item-form" extends="baseAdminLayout">
+        <put-attribute name="title" value="Item" />
+        <put-attribute name="AdminContent"
+                       value="/WEB-INF/pages/item-form.jsp" />
+    </definition>
     
     
     <definition name="edit-store" extends="baseAdminLayout">

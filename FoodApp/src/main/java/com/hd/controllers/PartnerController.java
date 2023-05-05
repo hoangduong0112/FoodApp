@@ -78,15 +78,26 @@ public class PartnerController {
 
     @GetMapping(path = {"/my-store", "/"})
     public String myStore(Model model, Principal p) {
-        model.addAttribute("menu", new Menu());
         model.addAttribute("item", new MenuItems());
         return "my-store";
     }
 
-    @RequestMapping("/my-store")
-    public String addMenu(Model model, @ModelAttribute(value = "menu") @Valid Menu m, Principal p, BindingResult rs) {
+    @GetMapping("/my-store/menu/add")
+    public String addMenuForm(Model model) {
+        model.addAttribute("menu", new Menu());
+        return "menu-form";
+    }
+
+    @GetMapping("/my-store/menu/{menuId}")
+    public String updateMenuForm(Model model, @PathVariable(value = "menuId") int id) {
+        model.addAttribute("menu", this.menuService.getMenuById(id));
+        return "menu-form";
+    }
+
+    @RequestMapping("/my-store/menu/save")
+    public String addOrUpdateMenu(Model model, @ModelAttribute(value = "menu") @Valid Menu m, Principal p, BindingResult rs) {
         if (rs.hasErrors()) {
-            return "my-store";
+            return "menu-form";
         }
         Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
         m.setStoreId(s);
@@ -96,50 +107,36 @@ public class PartnerController {
             model.addAttribute("errMsg", "Something wrong!");
         }
 
-        return "my-store";
+        return "menu-form";
+    }
+    
+    @GetMapping("/my-store/item/add")
+    public String addItemForm(Model model) {
+        model.addAttribute("item", new MenuItems());
+        return "item-form";
     }
 
-    @RequestMapping("/my-store/{menuId}")
-    public String UpdateMenu(Model model, @ModelAttribute(value = "menu") @Valid Menu m, @PathVariable(value = "menuId") int id, Principal p, BindingResult rs) {
+    @GetMapping("/my-store/item/{itemId}")
+    public String updateItemForm(Model model, @PathVariable(value = "itemId") int id) {
+        model.addAttribute("item", this.menuItemsService.getItem(id));
+        return "item-form";
+    }
+
+    @RequestMapping("/my-store/item/save")
+    public String addOrUpdateItem(Model model, @ModelAttribute(value = "item") @Valid MenuItems m, Principal p, BindingResult rs) {
         if (rs.hasErrors()) {
-            return "my-store";
+            return "item-form";
         }
-        Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
-        m.setStoreId(s);
-        m.setId(id);
-        if (this.menuService.addOrUpdate(m) == true) {
+        if (this.menuItemsService.addOrUpdate(m) == true) {
             return "redirect:/partner/my-store";
         } else {
             model.addAttribute("errMsg", "Something wrong!");
         }
 
-        return "my-store";
+        return "item-form";
     }
 
-    @RequestMapping("/my-store/item")
-    public String addItem(Model model, @ModelAttribute(name = "item") MenuItems item) {
-//        Menu menu = this.menuService.getMenuById(id);
-//        item.setMenuId(menu);
-        if (this.menuItemsService.addOrUpdate(item) == true) {
-            return "redirect:/partner/my-store";
-        } else {
-            model.addAttribute("errMsg", "Something wrong!");
-        }
 
-        return "my-store";
-    }
-
-    @RequestMapping("/my-store/item/{itemId}")
-    public String UpdateItem(Model model, @ModelAttribute(value = "item") MenuItems item, @PathVariable(value = "itemId") int id) {
-        item.setId(id);
-        if (this.menuItemsService.addOrUpdate(item) == true) {
-            return "redirect:/partner/my-store";
-        } else {
-            model.addAttribute("errMsg", "Something wrong!");
-        }
-
-        return "my-store";
-    }
 
     @GetMapping("/my-store/edit")
     public String editStoreForm(Model model, Principal p) {
@@ -189,7 +186,7 @@ public class PartnerController {
 
         return "order-items";
     }
-    
+
     @RequestMapping("/order/{itemId}/decline")
     public String DeclineOrderItem(Model model, @PathVariable(value = "itemId") int id) {
         if (this.orderItemService.updateStatusDecline(id)) {
@@ -200,5 +197,5 @@ public class PartnerController {
 
         return "order-items";
     }
-    
+
 }

@@ -4,6 +4,7 @@
  */
 package com.hd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -82,6 +83,7 @@ public class User implements Serializable {
     @Column(name = "username")
     private String username;
     @Size(max = 100)
+    @JsonIgnore
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -100,12 +102,16 @@ public class User implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Comments> commentsSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Follows> followsSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Store> storeSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<OrderSale> orderSaleSet;
 
     @Transient

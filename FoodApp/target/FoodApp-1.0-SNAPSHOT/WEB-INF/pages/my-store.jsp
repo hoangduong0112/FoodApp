@@ -29,86 +29,11 @@
                 </dl>
         </div>
         <div class="d-flex align-items-center mb-4">
-            <a href="javascript:;" class="mr-3" data-bs-toggle="modal" data-bs-target="#AddNewMenu">Thêm 1 loại menu</a>
+            <c:url value="/partner/my-store/menu/add" var="addMenu"/>
+            <a href="${addMenu}" class="mr-3">Thêm 1 loại menu</a>
             <!-- Modal -->
-            <c:url value="/partner/my-store" var="addmenu"/>
-
-            <div class="modal fade" id="AddNewMenu" tabindex="-1" aria-labelledby="addMenuLabel" aria-hidden="true">
-                <form:form method="post" action="${addmenu}" modelAttribute="menu"  accept-charset="UTF-8" enctype="multipart/form-data">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addMenuLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="mb-3">
-                                    <label for="NameInput" class="form-label">Tên menuL</label>
-                                    <form:input type="text" class="form-control" id="name" name="name" path="name" />
-                                    <div class="form-text">
-                                        Tên loại menu
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
-                                <input type="submit" class="btn btn-primary" value="Tạo"/>
-                            </div>
-                        </div>
-                    </div>
-                </form:form>
-            </div>
-            <a href="javascript:;" class="mx-3" data-bs-toggle="modal" data-bs-target="#addItem">Thêm 1 sản phẩm cho Menu ${menu.name}</a>
-            <!-- Modal -->
-            <c:url value="/partner/my-store/item" var="additem" />
-            <form:form method="post" action="${additem}" modelAttribute="item" enctype="multipart/form-data">
-                <div class="modal fade" id="addItem" tabindex="-1" aria-labelledby="AddItemLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="AddItemLabel">Thêm 1 sản phẩm vào</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="mb-3">
-                                    <label for="NameInput" class="form-label">Tên sản phẩm:</label>
-                                    <form:input type="text" class="form-control" id="name" name="name" path="name" />
-                                    <div class="form-text">
-                                        Tên sản phẩm của cửa hàng
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="NameInput" class="form-label">Giá tiền:</label>
-                                    <form:input type="number" class="form-control" id="price" name="price" path="price" />
-                                    <div class="form-text">
-                                        Giá của sản phẩm
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="NameInput" class="form-label">Menu:</label>
-                                    <form:select class="form-select mb-3" id="menuId" name="menuId" path="menuId">
-                                        <c:forEach items="${menus}" var="m">
-
-                                            <option value="${m.id}">${m.name}</option>
-
-
-                                        </c:forEach>
-                                    </form:select>
-
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-primary">Tạo</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form:form>
+            <c:url value="/partner/my-store/item/add" var="addItem"/>        
+            <a href="${addItem}" class="mx-3">Thêm 1 sản phẩm cho cửa hàng</a>     
             <a href="<c:url value="/partner/my-store/edit"/>" class="mx-3">Chỉnh sửa</a>
         </div>
         <c:if test="${errMsg != null}">
@@ -150,40 +75,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <a href="javascript:;" class="mx-3" data-bs-toggle="modal" data-bs-target="#UpdateMenu${menu.id}">Chỉnh sửa Menu</a>
-                        <!-- Modal -->
-                        <c:url value="/partner/my-store/${menu.id}" var="updatemenu"/>
-                        <form:form method="post" action="${updatemenu}" modelAttribute="menu" enctype="multipart/form-data" >
-                            <div class="modal fade" id="UpdateMenu${menu.id}" tabindex="-1" aria-labelledby="UpdateMenuLabel${menu.id}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="UpdateMenuLabel${menu.id}">Menu</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <div class="mb-3">
-                                                <label for="NameInput" class="form-label">Tên menu</label>
-                                                <form:input type="text" class="form-control" id="name" name="name" path="name" />
-                                                <div class="form-text">
-                                                    Tên loại menu
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                            <form:hidden path="id" />
-                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form:form>
-
+                        <a href="<c:url value="/partner/my-store/menu/${menu.id}" />" class="mx-3">Chỉnh sửa Menu</a>              
                     </div>
                 </div>
 
@@ -207,77 +99,11 @@
                                             <td>${item.price}</td>
                                             <td style="max-width: 100px">
                                                 <div class="d-flex">
-                                                    <a href="javascript:;" class="mx-3 btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateItem${item.id}">Detail</a>
-                                                    <!-- Modal -->
-                                                    <c:url value="/partner/my-store/item/${item.id}" var="updateitem" />
-                                                    <form:form method="post" action="${updateitem}" modelAttribute="item" enctype="multipart/form-data" >
-                                                        <div class="modal fade" id="updateItem${item.id}" tabindex="-1" aria-labelledby="UpdateItemLabel${item.id}" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="UpdateItemLabel${item.id}">Thêm 1 sản phẩm vào</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
+                                                    <a href="<c:url value="/partner/my-store/item/${item.id}" />" class="mx-3 btn btn-sm btn-primary">Cập nhật</a>
 
-                                                                        <div class="mb-3">
-                                                                            <label for="NameInput" class="form-label">Tên sản phẩm:</label>
-                                                                            <c:choose>
-                                                                                <c:when test="${m.name != null}">
-                                                                                    <form:input type="text" class="form-control" id="name" name="name" path="name" defaultValue="${m.name}"/>
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <form:input type="text" class="form-control" id="name" name="name" path="name" />
-                                                                                </c:otherwise>
-                                                                            </c:choose>
-
-                                                                            <div class="form-text">
-                                                                                Tên sản phẩm của cửa hàng
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="mb-3">
-                                                                            <label for="NameInput" class="form-label">Giá tiền:</label>
-                                                                            <form:input type="number" class="form-control" id="price" name="price" path="price" />
-                                                                            <div class="form-text">
-                                                                                Giá của sản phẩm
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="mb-3">
-                                                                            <label for="NameInput" class="form-label">Menu:</label>
-                                                                            <form:select class="form-select mb-3" id="menuId" name="menuId" path="menuId">
-                                                                                <c:forEach items="${menus}" var="m">
-                                                                                    <c:choose>
-                                                                                        <c:when test="${m.id == item.menuId.id}">
-                                                                                            <option value="${m.id}" selected>${m.name}</option>
-                                                                                        </c:when>
-                                                                                        <c:otherwise>
-                                                                                            <option value="${m.id}">${m.name}</option>
-                                                                                        </c:otherwise>
-                                                                                    </c:choose>
-
-
-
-                                                                                </c:forEach>
-                                                                            </form:select>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                                        <form:hidden path="id" />
-                                                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </form:form>
                                                     <a href="javascript:;" class="btn btn-sm btn-danger mx-3" data-bs-toggle="modal"  data-bs-target="#confirmDeleteItem${item.id}">
                                                         Xóa
                                                     </a>
-
-                                                    <!-- Confirmation modal -->
                                                     <div class="modal fade" id="confirmDeleteItem${item.id}" tabindex="-1" aria-labelledby="confirmDeleteItemLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">

@@ -4,7 +4,9 @@
  */
 package com.hd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Comments.findAll", query = "SELECT c FROM Comments c"),
     @NamedQuery(name = "Comments.findById", query = "SELECT c FROM Comments c WHERE c.id = :id"),
-    @NamedQuery(name = "Comments.findByContent", query = "SELECT c FROM Comments c WHERE c.content = :content")})
+    @NamedQuery(name = "Comments.findByContent", query = "SELECT c FROM Comments c WHERE c.content = :content"),
+    @NamedQuery(name = "Comments.findByCreatedDate", query = "SELECT c FROM Comments c WHERE c.createdDate = :createdDate")})
 public class Comments implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,8 +49,12 @@ public class Comments implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "content")
     private String content;
+    @Column(name = "created_date")
+    @Temporal(TemporalType.DATE)
+    private Date createdDate;
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Store storeId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
@@ -77,6 +86,14 @@ public class Comments implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Store getStoreId() {

@@ -1,4 +1,3 @@
-// Spinner
 var removeSpinner = function () {
     setTimeout(function () {
         if ($('#spinner').length > 0) {

@@ -5,12 +5,14 @@ com\hd\pojo\Category_.class
 com\hd\pojo\Comments_.class
 com\hd\pojo\OrderSale.class
 com\hd\pojo\Category.class
+com\hd\service\impl\CommentServiceImpl.class
 com\hd\configs\WebAppContextConfig.class
 com\hd\formatter\LocalDateFormatter.class
 com\hd\repository\OrderItemRepository.class
 com\hd\repository\impl\OrderItemRepositoryImpl.class
 com\hd\service\impl\StoreServiceImpl.class
 com\hd\pojo\User.class
+com\hd\repository\impl\CommentRepositoryImpl.class
 com\hd\repository\StatsRepository.class
 com\hd\configs\DispatcherServletInit.class
 com\hd\handler\MailHandler.class
@@ -18,11 +20,13 @@ com\hd\validation\StoreName.class
 com\hd\pojo\Comments.class
 com\hd\configs\TilesConfig.class
 com\hd\service\UserService.class
+com\hd\repository\CommentRepository.class
 com\hd\service\impl\StatsServiceImpl.class
 com\hd\repository\CategoryRepository.class
 com\hd\controllers\HomeController.class
 com\hd\pojo\Follows.class
 com\hd\pojo\OrderSale_.class
+com\hd\service\CommentService.class
 com\hd\formatter\UserFormatter.class
 com\hd\repository\MenuItemsRepository.class
 com\hd\configs\HibernateConfig.class
@@ -34,6 +38,7 @@ com\hd\pojo\Menu_.class
 com\hd\service\impl\SecurityServiceImpl.class
 com\hd\controllers\ApiOrderItemsController.class
 com\hd\service\StoreService.class
+com\hd\controllers\ApiCommentController.class
 com\hd\repository\UserRepository.class
 com\hd\controllers\ApiCartController.class
 com\hd\service\OrderSaleService.class

@@ -79,7 +79,7 @@ public class HomeController {
         model.addAttribute("cartStats", Utils.cartStats((Map<Integer, Cart>) session.getAttribute("cart")));
     }
 
-    @RequestMapping(path = {"/", "/store"})
+    @RequestMapping(path = {"/", "/stores"})
     public String index(Model model, @RequestParam Map<String, String> params) {
         List<Store> s = this.storeService.getStores(params);
 
