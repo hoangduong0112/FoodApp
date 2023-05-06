@@ -40,11 +40,10 @@
                     </div>
                     <div class="form-group">
                         <form:input type="file" class="form-control" id="file" name="file" path="file"/>
-                        <label for="file">Ảnh cửa hàng:</label>
+                        <label for="file">Ảnh đại diện</label>
                     </div>
+                        <button class="btn btn-block btn-info rounded-pill" type="submit">Register</button>
                 </div>
-                <button class="btn btn-block btn-info rounded-pill" type="submit">Register</button>
-
             </form:form>
 
     </div>

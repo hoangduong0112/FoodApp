@@ -4,10 +4,12 @@
  */
 package com.hd.pojo;
 
+import com.hd.validation.StoreName;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -68,11 +70,12 @@ public class Store implements Serializable {
     @Basic(optional = false)
     @NotNull(message = "{store.name.null}")
     @Size(min = 1, max = 100, message = "{store.name.length}")
+    @StoreName(message = "{store.name.error}")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull(message = "{store.address.null}")
-    @Size(min = 1, max = 120,  message = "{store.address.length}")
+    @Size(min = 1, max = 120, message = "{store.address.length}")
     @Column(name = "address")
     private String address;
     @Basic(optional = false)
@@ -88,7 +91,7 @@ public class Store implements Serializable {
     private Date lastUpdate;
     @OneToMany(mappedBy = "storeId")
     private Set<Comments> commentsSet;
-    @OneToMany(mappedBy = "storeId")
+    @OneToMany(mappedBy = "storeId", cascade = CascadeType.REMOVE)
     private Set<Follows> followsSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
@@ -96,12 +99,12 @@ public class Store implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
-    @OneToMany(mappedBy = "storeId")
+    @OneToMany(mappedBy = "storeId", cascade = CascadeType.ALL)
     private Set<Menu> menuSet;
 
-    
     @Transient
     private MultipartFile file;
+
     public Store() {
     }
 
@@ -231,5 +234,5 @@ public class Store implements Serializable {
     public String toString() {
         return "com.hd.pojo.Store[ id=" + id + " ]";
     }
-    
+
 }

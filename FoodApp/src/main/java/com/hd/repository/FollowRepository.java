@@ -7,6 +7,7 @@ package com.hd.repository;
 import com.hd.pojo.Follows;
 import com.hd.pojo.Store;
 import com.hd.pojo.User;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,5 @@ public interface FollowRepository {
     Boolean followStore(Follows follow);
     Boolean unfollowStore(Follows follow);
     Boolean isFollowing(User user, Store store);
+    List<Follows> getFollowStore(User user);
 }

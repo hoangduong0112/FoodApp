@@ -7,6 +7,7 @@ package com.hd.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MenuItems.findAll", query = "SELECT m FROM MenuItems m"),
     @NamedQuery(name = "MenuItems.findById", query = "SELECT m FROM MenuItems m WHERE m.id = :id"),
     @NamedQuery(name = "MenuItems.findByName", query = "SELECT m FROM MenuItems m WHERE m.name = :name"),
-    @NamedQuery(name = "MenuItems.findByPrice", query = "SELECT m FROM MenuItems m WHERE m.price = :price")})
+    @NamedQuery(name = "MenuItems.findByPrice", query = "SELECT m FROM MenuItems m WHERE m.price = :price"),
+    @NamedQuery(name = "MenuItems.findByActive", query = "SELECT m FROM MenuItems m WHERE m.active = :active")})
 public class MenuItems implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,17 +46,19 @@ public class MenuItems implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @NotNull(message = "{item.name.null}")
+    @Size(min = 1, max = 100, message = "{item.name.length}")
     @Column(name = "name")
     private String name;
+    @NotNull(message = "{item.price.null}")
     @Column(name = "price")
-    @NotNull
     private Long price;
+    @Column(name = "active")
+    private Boolean active;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne
     private Menu menuId;
-    @OneToMany(mappedBy = "itemId")
+    @OneToMany(mappedBy = "itemId", cascade =  CascadeType.ALL)
     private Set<OrderItems> orderItemsSet;
 
     public MenuItems() {
@@ -91,6 +95,14 @@ public class MenuItems implements Serializable {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Menu getMenuId() {

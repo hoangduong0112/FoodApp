@@ -26,6 +26,16 @@
         </div>
     </div>
     <div class="mb-3">
+        <label class="form-label mr-5">Mở bán:</label>
+        <label for="ActiveInput" class="form-label">Có</label>
+        <form:radiobutton path="active" value="true" />
+        <label for="UnactiveInput" class="form-label">Không</label>
+        <form:radiobutton path="active" value="false" />
+        <div class="form-text">
+            Hiển thị sản phẩm trên trang cửa hàng
+        </div>
+    </div>
+    <div class="mb-3">
         <label for="NameInput" class="form-label">Menu:</label>
         <form:select class="form-select mb-3" id="menuId" name="menuId" path="menuId">
             <c:forEach items="${menus}" var="m">

@@ -68,11 +68,12 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
             if (m.getId() != null) {
                 MenuItems item = this.getItem(m.getId());
                 item.setPrice(m.getPrice());
-
+                item.setActive(m.getActive());
                 item.setName(m.getName().trim());
 
                 s.save(item);
             } else {
+                //Mới tạo sẽ auto False
                 s.save(m);
             }
             return true;

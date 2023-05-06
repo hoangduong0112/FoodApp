@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!-- Sidebar Start -->
 <div class="sidebar pe-4 pb-3">
@@ -24,11 +24,24 @@
                 <span>${pageContext.session.getAttribute("currentUser").userRole}</span>
             </div>
         </div>
+        <hr />
         <div class="navbar-nav w-100">
-            <a href="<c:url value="/partner/order" />" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Đơn hàng</a>       
-            
-            <a href="<c:url value="/partner/stats" />" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a>
-            
+
+            <sec:authorize access="hasRole('ROLE_PARTNER')">
+                <a href="<c:url value='/partner/my-store' />" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Cửa hàng của tôi</a>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <a href="<c:url value='/admin/stores' />" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Quản lý cửa hàng</a>
+            </sec:authorize>
+
+            <sec:authorize access="hasRole('ROLE_PARTNER')">
+                <a href="<c:url value="/partner/order" />" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Đơn hàng</a>    
+            </sec:authorize>
+            <a href="<sec:authorize access="hasRole('ROLE_PARTNER')"><c:url value='/partner/stats' /></sec:authorize>
+               <sec:authorize access="hasRole('ROLE_ADMIN')"><c:url value='/admin/stats' /></sec:authorize>" 
+               class="nav-item nav-link">
+                <i class="fa fa-chart-bar me-2"></i>Thống kê
+            </a>
         </div>
     </nav>
 </div>

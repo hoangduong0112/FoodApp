@@ -7,6 +7,7 @@ package com.hd.service;
 import com.hd.pojo.Follows;
 import com.hd.pojo.Store;
 import com.hd.pojo.User;
+import java.util.List;
 
 /**
  *
@@ -19,4 +20,6 @@ public interface FollowService {
     Boolean unfollowStore(Follows follow);
     
     Boolean isFollowing(User user, Store store);
+    
+    List<Follows> getFollowStore(User user);
 }

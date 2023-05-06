@@ -33,11 +33,7 @@ public class ApiMenuController {
     @DeleteMapping("/api/deleteMenu/{menuId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMenu(@PathVariable(value = "menuId") int id) {
-        if (this.itemService.getMenuItemsByMenuId(id).isEmpty()) {
-            this.menuService.deleteMenu(id);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Không thể xóa bởi vì trong menu vẫn còn sản phẩm");
-        }
+        this.menuService.deleteMenu(id);
     }
 
 }

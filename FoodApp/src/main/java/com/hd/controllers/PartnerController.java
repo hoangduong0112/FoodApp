@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,8 +65,9 @@ public class PartnerController {
     private StatsService statsService;
 
     @ModelAttribute
-    public void commonAttribute(Model model, Principal p) {
+    public void commonAttribute(Model model, Authentication p) {    
         Store s = this.storeService.getStoreByUserId(this.userService.getUserByUsername(p.getName()).getId());
+        if(s != null){
         model.addAttribute("myStore", s);
         List<Menu> menus = this.menuService.getMenuByStoreId(s.getId());
         List<List<MenuItems>> menuItemsList = new ArrayList<>();
@@ -74,6 +76,9 @@ public class PartnerController {
         }
         model.addAttribute("menus", menus);
         model.addAttribute("menuItems", menuItemsList);
+        }
+        else
+            model.addAttribute("errMsg", "Chưa có cửa hàng nào");
     }
 
     @GetMapping(path = {"/my-store", "/"})

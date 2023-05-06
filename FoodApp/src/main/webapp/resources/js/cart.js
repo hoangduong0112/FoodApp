@@ -82,10 +82,10 @@ function pay(endpoint) {
     }).then(res => {
         console.info(res);
         if (res.status === 200) {
+            $('#spinner').hide()
             let counters = document.getElementsByClassName("cart-counter");
             for (let d of counters)
                 d.innerText = 0;
-            $('#spinner').hide()
             res.text().then(url => {
                 window.location.href = url;
             });

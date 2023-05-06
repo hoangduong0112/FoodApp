@@ -13,6 +13,7 @@ com\hd\service\impl\StoreServiceImpl.class
 com\hd\pojo\User.class
 com\hd\repository\StatsRepository.class
 com\hd\configs\DispatcherServletInit.class
+com\hd\handler\LogoutSuccessHandler.class
 com\hd\handler\MailHandler.class
 com\hd\validation\StoreName.class
 com\hd\pojo\Comments.class

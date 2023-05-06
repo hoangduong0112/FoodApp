@@ -7,6 +7,7 @@ package com.hd.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Menu implements Serializable {
     @Size(min = 1, max = 45, message = "{menu.name.length}")
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "menuId")
+    @OneToMany(mappedBy = "menuId", cascade = CascadeType.ALL)
     private Set<MenuItems> menuItemsSet;
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     @ManyToOne

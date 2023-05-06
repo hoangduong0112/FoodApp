@@ -12,6 +12,8 @@
 
       <div class="card shadow p-5">
         <h3 class="text-center mb-3 font-time"> Đăng nhập </h3>
+        <c:if test="${accessDenied != null}"></c:if>
+            <h6 class="alert alert-danger">${accessDenied}</h6>
         <c:url value="/login" var="action" />
             <form method="post" action="${action}">
 

@@ -8,6 +8,7 @@ import com.hd.pojo.Store;
 import com.hd.pojo.User;
 import com.hd.repository.StoreRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.NoResultException;
@@ -68,23 +69,30 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     public Store getStoreById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Store.class, id);
+        try {
+            Store store = s.get(Store.class, id);
+            return store;
+        }catch(NoResultException ex){
+            return null;
+        }
     }
 
     @Override
     public boolean addOrUpdate(Store p) {
         Session s = this.factory.getObject().getCurrentSession();
+        p.setLastUpdate(new Date());
         try {
             if (p.getId() != null) {
                 Store store = this.getStoreById(p.getId());
 
-                store.setName(p.getName());
-                store.setAddress(p.getAddress());
+                store.setName(p.getName().trim());
+                store.setAddress(p.getAddress().trim());
                 store.setSdt(p.getSdt());
                 store.setCategoryId(p.getCategoryId());
                 store.setMenuSet(p.getMenuSet());
                 store.setImage(p.getImage());
                 store.setUserId(p.getUserId());
+                store.setLastUpdate(p.getLastUpdate());
                 s.save(store);
             } else {
                 s.save(p);
@@ -103,7 +111,12 @@ public class StoreRepositoryImpl implements StoreRepository {
         Root root = q.from(Store.class);
         q.select(root).where(b.equal(root.get("userId"), id));
         Query query = s.createQuery(q);
-        return (Store) query.getSingleResult();
+        try {
+            Store store = (Store)query.getSingleResult();
+            return store;
+        }catch(NoResultException ex){
+            return null;
+        }
     }
 
     @Override

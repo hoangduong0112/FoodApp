@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -102,20 +103,20 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userId")
     private Set<Comments> commentsSet;
     @JsonIgnore
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private Set<Follows> followsSet;
     @JsonIgnore
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private Set<Store> storeSet;
     @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<OrderSale> orderSaleSet;
 
-    
     @Transient
     private String confirmPassword;
     @Transient
     private MultipartFile file;
+
     public User() {
     }
 
@@ -247,5 +248,5 @@ public class User implements Serializable {
     public String toString() {
         return "com.hd.pojo.User[ id=" + id + " ]";
     }
-    
+
 }

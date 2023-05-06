@@ -9,6 +9,7 @@ import com.hd.pojo.Store;
 import com.hd.pojo.User;
 import com.hd.repository.FollowRepository;
 import com.hd.service.FollowService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,10 @@ public class FollowServiceImpl implements FollowService{
     @Override
     public Boolean isFollowing(User user, Store store) {
         return this.followRepo.isFollowing(user, store);
+    }
+
+    @Override
+    public List<Follows> getFollowStore(User user) {
+        return this.followRepo.getFollowStore(user);
     }
 }

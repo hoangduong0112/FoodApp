@@ -6,6 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/api/cart" var="endpoint" />
 <div class="row px-xl-5 justify-content-center">
@@ -56,6 +57,7 @@
                         <c:forEach items="${menuItemsList}" var="items">
                             <c:if test="${items[0].menuId.id == menu.id}">
                                 <c:forEach items="${items}" var="item">
+                                    <c:if test="${item.active}">
                                     <tr>
                                         <td style="width: 50%;">${item.name}</td>
                                         <td style="width: 30%;">${item.price}đ</td>
@@ -63,6 +65,7 @@
                                             <a href="javascript:;" onclick="addToCart('${endpoint}', ${item.id}, '${item.name}', ${item.price})" class="btn-sm btn-primary rounded">Add to cart</a>
                                         </td>
                                     </tr>
+                                    </c:if>
                                 </c:forEach>
                             </c:if>
                         </c:forEach>

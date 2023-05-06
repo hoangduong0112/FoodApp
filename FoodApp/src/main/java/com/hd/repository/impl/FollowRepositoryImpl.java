@@ -8,6 +8,7 @@ import com.hd.pojo.Follows;
 import com.hd.pojo.Store;
 import com.hd.pojo.User;
 import com.hd.repository.FollowRepository;
+import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -42,7 +43,12 @@ public class FollowRepositoryImpl implements FollowRepository {
     public Boolean unfollowStore(Follows follow) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
-            s.delete(follow);
+            Follows managedFollow = (Follows) s.createQuery("FROM Follows f WHERE f.storeId.id = :storeId AND f.userId.id = :userId")
+                    .setParameter("storeId", follow.getStoreId().getId())
+                    .setParameter("userId", follow.getUserId().getId())
+                    .getSingleResult();
+
+            s.delete(managedFollow);
             return true;
         } catch (HibernateException ex) {
             return false;
@@ -57,6 +63,16 @@ public class FollowRepositoryImpl implements FollowRepository {
                 .setParameter("store", store);
         Long count = (Long) query.getSingleResult();
         return count > 0;
+    }
+
+    @Override
+    public List<Follows> getFollowStore(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String hql = "FROM Follows f WHERE f.userId = :user";
+        Query query = s.createQuery(hql);
+        query.setParameter("user", user);
+        List<Follows> followStores = query.getResultList();
+        return followStores;
     }
 
 }

@@ -24,11 +24,34 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between bg-light border">
                     <a href="${detail}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i> Xem chi tiết</a>
-                    <c:url value='/api/stores/${s.id}/follow' var="followStore" />
-                    <a onclick="FollowStore('${followStore}')" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary"></i> Theo dõi</a>
+
+                    <c:choose>
+                        <c:when test="${not empty currentUser}">
+                            <c:set var="followed" value="false"/>
+                            <c:forEach items="${followedStores}" var="fs">
+                                <c:if test="${fs.storeId.id == s.id}">
+                                    <c:set var="followed" value="true"/>
+                                </c:if>
+                            </c:forEach>
+                            <c:choose>
+                                <c:when test="${followed}">
+                                    <c:url value='/api/stores/${s.id}/unfollow' var="unfollowStore" />
+                                    <a onclick="UnfollowStore('${unfollowStore}')"class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-danger"></i> Unfollow</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:url value='/api/stores/${s.id}/follow' var="followStore" />
+                                    <a onclick="FollowStore('${followStore}')" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary"></i> Theo dõi</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value="/login" />" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary"></i> Theo dõi</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
-        </c:forEach>
-    </div>
+    </c:forEach>
+
+</div>
 

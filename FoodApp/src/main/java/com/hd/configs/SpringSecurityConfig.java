@@ -7,6 +7,7 @@ package com.hd.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.hd.handler.LoginSuccessHandler;
+import com.hd.handler.LogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,6 +44,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private LoginSuccessHandler loginHandler;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private LogoutSuccessHandler logoutHandler;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -70,7 +73,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error");
 
         http.formLogin().successHandler(this.loginHandler).failureUrl("/login?error");
-        http.logout().logoutSuccessUrl("/login");
+        http.logout().addLogoutHandler(this.logoutHandler);
 
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");
@@ -78,8 +81,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/partner/**").access("hasRole('ROLE_PARTNER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.DELETE, "/api/deleteMenu/**").access("hasRole('ROLE_PARTNER')")
-                .antMatchers(HttpMethod.DELETE,"/api/deleteItem/**").access("hasRole('ROLE_PARTNER')")
-                .antMatchers(HttpMethod.DELETE,"/api/deleteStore/**").access("hasRole('ROLE_ADMIN')");
+                .antMatchers(HttpMethod.DELETE, "/api/deleteItem/**").access("hasRole('ROLE_PARTNER')")
+                .antMatchers(HttpMethod.DELETE, "/api/deleteStore/**").access("hasRole('ROLE_ADMIN')");
         http.csrf().disable();
     }
 

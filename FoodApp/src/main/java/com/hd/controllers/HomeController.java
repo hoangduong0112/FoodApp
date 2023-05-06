@@ -7,6 +7,7 @@ package com.hd.controllers;
 import com.hd.pojo.Cart;
 import com.hd.pojo.Category;
 import com.hd.pojo.Comments;
+import com.hd.pojo.Follows;
 import com.hd.pojo.Menu;
 import com.hd.pojo.MenuItems;
 import com.hd.pojo.OrderItems;
@@ -15,6 +16,7 @@ import com.hd.pojo.Store;
 import com.hd.pojo.User;
 import com.hd.service.CategoryService;
 import com.hd.service.CommentsService;
+import com.hd.service.FollowService;
 import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
 import com.hd.service.OrderItemService;
@@ -29,6 +31,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +82,9 @@ public class HomeController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private FollowService followService;
+
     @ModelAttribute
     public void commonAttribute(Model model, HttpSession session) {
         List<Category> p = this.categoryService.getCategories();
@@ -86,9 +93,17 @@ public class HomeController {
     }
 
     @RequestMapping(path = {"/", "/stores"})
-    public String index(Model model, @RequestParam Map<String, String> params) {
+    public String index(Model model, @RequestParam Map<String, String> params, Principal p) {
         List<Store> s = this.storeService.getStores(params);
 
+        if (p != null) {
+            String username = p.getName();
+            User user = this.userService.getUserByUsername(username);
+            if (user != null) {
+                List<Follows> followedStores = this.followService.getFollowStore(user);
+                model.addAttribute("followedStores", followedStores);
+            }
+        }
         model.addAttribute("stores", s);
         return "index";
     }
@@ -109,7 +124,10 @@ public class HomeController {
     }
 
     @RequestMapping(path = "/login")
-    public String loginView() {
+    public String loginView(HttpServletRequest request, Model model) {
+        if (request.getParameter("accessDenied") != null) {
+        model.addAttribute("accessDenied", "Bạn không có quyền truy cập vào tài nguyên");
+    }
         return "login";
     }
 
@@ -149,11 +167,16 @@ public class HomeController {
     }
 
     @GetMapping("/checkout/{id}")
-    public String checkout(@PathVariable("id") int orderId, Model model) {
+    public String checkout(@PathVariable("id") int orderId, Model model, Principal p) {
         OrderSale yourOrder = this.orderSaleService.getOrderById(orderId);
+        User user = this.userService.getUserByUsername(p.getName());
+        if(Objects.equals(yourOrder.getUserId().getId(), user.getId()))
+            return "redirect:/login?accessDenied";
+        else{
         List<OrderItems> items = this.orderItemService.getOrderItemsByOrderId(yourOrder.getId());
         model.addAttribute("result", yourOrder);
         model.addAttribute("items", items);
         return "checkout";
+        }
     }
 }
