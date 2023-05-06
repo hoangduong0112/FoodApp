@@ -34,7 +34,7 @@ public class ApiStoreController {
     @Autowired
     private MenuItemsService itemService;
 
-    @DeleteMapping("/api/stores/{storeId}")
+    @DeleteMapping("/api/deleteStore/{storeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStore(@PathVariable(value = "storeId") int id) {
 

@@ -63,7 +63,7 @@
         <div class="col-lg-3 col-6 text-right">
             <a href="" class="btn border">
                 <i class="fas fa-heart text-primary"></i>
-                <span class="badge" style="color:black">0</span>
+                <span class="badge" style="color:black"></span>
             </a>
             <a href="<c:url value="/cart" />" class="btn border">               
                 <i class="fas fa-shopping-cart text-primary"></i>

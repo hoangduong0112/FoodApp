@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Duong Hoang
  */
-public interface CommentRepository {
-    List<Comments> getComments(int productId);
-    boolean addComment(Comments c);
+public interface CommentsRepository {
+    List<Comments> getListCommentsofStore(int store);
+    Boolean addComment(Comments c);
 }

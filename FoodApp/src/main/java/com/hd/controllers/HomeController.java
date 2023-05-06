@@ -6,6 +6,7 @@ package com.hd.controllers;
 
 import com.hd.pojo.Cart;
 import com.hd.pojo.Category;
+import com.hd.pojo.Comments;
 import com.hd.pojo.Menu;
 import com.hd.pojo.MenuItems;
 import com.hd.pojo.OrderItems;
@@ -13,6 +14,7 @@ import com.hd.pojo.OrderSale;
 import com.hd.pojo.Store;
 import com.hd.pojo.User;
 import com.hd.service.CategoryService;
+import com.hd.service.CommentsService;
 import com.hd.service.MenuItemsService;
 import com.hd.service.MenuService;
 import com.hd.service.OrderItemService;
@@ -21,7 +23,9 @@ import com.hd.service.SecurityService;
 import com.hd.service.StoreService;
 import com.hd.service.UserService;
 import com.hd.utils.Utils;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +69,8 @@ public class HomeController {
 
     @Autowired
     private OrderSaleService orderSaleService;
+    @Autowired
+    private CommentsService commentsService;
 
     @Autowired
     private OrderItemService orderItemService;
@@ -87,7 +93,7 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(path = "/store/{storeId}")
+    @RequestMapping(path = "/stores/{storeId}")
     public String details(Model model, @PathVariable(value = "storeId") int id) {
         model.addAttribute("store", this.storeService.getStoreById(id));
 
@@ -98,6 +104,7 @@ public class HomeController {
         }
         model.addAttribute("menus", menus);
         model.addAttribute("menuItemsList", menuItemsList);
+        model.addAttribute("comments", new Comments());
         return "store-menu";
     }
 

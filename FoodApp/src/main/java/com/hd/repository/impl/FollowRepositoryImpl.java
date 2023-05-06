@@ -4,9 +4,10 @@
  */
 package com.hd.repository.impl;
 
-import com.hd.pojo.Comments;
-import com.hd.repository.CommentRepository;
-import java.util.List;
+import com.hd.pojo.Follows;
+import com.hd.pojo.Store;
+import com.hd.pojo.User;
+import com.hd.repository.FollowRepository;
 import javax.persistence.Query;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -14,35 +15,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Duong Hoang
  */
 @Repository
 @Transactional
-public class CommentRepositoryImpl implements CommentRepository {
+public class FollowRepositoryImpl implements FollowRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Comments> getComments(int storeId) {
+    public Boolean followStore(Follows follow) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("From Comments Where storeId.id=:storeId");
-        q.setParameter("storeId", storeId);
-
-        return q.getResultList();
+        try {
+            s.save(follow);
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
     }
 
     @Override
-    public boolean addComment(Comments c) {
+    public Boolean unfollowStore(Follows follow) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
-            s.save(c);
+            s.delete(follow);
             return true;
         } catch (HibernateException ex) {
-            ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public Boolean isFollowing(User user, Store store) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query query = s.createQuery("SELECT COUNT(f) FROM Follows f WHERE f.userId = :user AND f.storeId = :store")
+                .setParameter("user", user)
+                .setParameter("store", store);
+        Long count = (Long) query.getSingleResult();
+        return count > 0;
     }
 
 }

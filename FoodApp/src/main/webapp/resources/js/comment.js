@@ -14,9 +14,10 @@ function loadComments(endpoint) {
     fetch(endpoint).then(res => res.json()).then(data => {
         let msg = "";
         for (let c of data) {
-            msg += `              
+            msg += `
+              <div class="row bg-light m-1">
                     <div class="col-md-1 col-xs-3">
-                        <h5>${c.userId.hoten} </h5>
+                        <h5>${c.userId.hoten}</h5>
                     </div>
                     <div class="col-md-10 col-xs-9">
                         <p>${c.content}</p>
@@ -24,6 +25,7 @@ function loadComments(endpoint) {
                             Binh luan boi <a href="#">${c.userId.username}</a> luc ${moment(c.createdDate).locale("vi").fromNow()}
                         </small>
                     </div>
+                </div>
             `
         }
 
@@ -32,13 +34,12 @@ function loadComments(endpoint) {
     });
 }
 
-
 function addComment(endpoint) {
     showSpinner("block")
     fetch(endpoint, {
         method: "POST",
         body: JSON.stringify({
-            "content": document.getElementById("content").value
+            "content": document.getElementById("comment-content").value
         }), 
         headers: {
             "Content-Type": "application/json"
@@ -54,7 +55,7 @@ function addComment(endpoint) {
                     <div class="col-md-10 col-xs-9">
                         <p>${c.content}</p>
                         <small>
-                            Binh luan boi <a href="#">${c.userId.hoten}</a> luc ${moment(c.createdDate).locale("vi").fromNow()}
+                            Binh luan boi <a href="#">${c.userId.username}</a> luc ${moment(c.createdDate).locale("vi").fromNow()}
                         </small>
                     </div>
                 </div>

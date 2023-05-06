@@ -4,14 +4,19 @@
  */
 package com.hd.service;
 
-import com.hd.pojo.Comments;
-import java.util.List;
+import com.hd.pojo.Follows;
+import com.hd.pojo.Store;
+import com.hd.pojo.User;
 
 /**
  *
  * @author Duong Hoang
  */
-public interface CommentService {
-    List<Comments> getComments(int storeId);
-    boolean addComment(Comments c);
+public interface FollowService {
+
+    Boolean followStore(Follows follow);
+
+    Boolean unfollowStore(Follows follow);
+    
+    Boolean isFollowing(User user, Store store);
 }

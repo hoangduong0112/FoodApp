@@ -6,7 +6,6 @@ package com.hd.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,8 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -82,8 +79,8 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "username")
     private String username;
-    @Size(max = 100)
     @JsonIgnore
+    @Size(max = 100)
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -101,24 +98,24 @@ public class User implements Serializable {
     private String userRole;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(mappedBy = "userId")
     @JsonIgnore
+    @OneToMany(mappedBy = "userId")
     private Set<Comments> commentsSet;
-    @OneToMany(mappedBy = "userId")
     @JsonIgnore
+    @OneToMany(mappedBy = "userId")
     private Set<Follows> followsSet;
     @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Store> storeSet;
-    @OneToMany(mappedBy = "userId")
     @JsonIgnore
+    @OneToMany(mappedBy = "userId")
     private Set<OrderSale> orderSaleSet;
 
+    
     @Transient
     private String confirmPassword;
     @Transient
     private MultipartFile file;
-
     public User() {
     }
 
@@ -250,5 +247,5 @@ public class User implements Serializable {
     public String toString() {
         return "com.hd.pojo.User[ id=" + id + " ]";
     }
-
+    
 }

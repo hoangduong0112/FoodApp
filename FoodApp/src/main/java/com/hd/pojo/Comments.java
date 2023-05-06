@@ -50,7 +50,7 @@ public class Comments implements Serializable {
     @Column(name = "content")
     private String content;
     @Column(name = "created_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     @ManyToOne

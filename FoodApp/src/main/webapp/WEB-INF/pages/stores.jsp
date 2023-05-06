@@ -62,7 +62,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-                                                <c:url value="/api/stores/${s.id}" var="endpoint" />
+                                                <c:url value="/api/deleteStore/${s.id}" var="endpoint" />
                                                 <button type="button" class="btn btn-danger" onclick="deleteStore('${endpoint}',${s.id})" data-bs-dismiss="modal">Delete</button>
                                             </div>
                                         </div>

@@ -10,7 +10,7 @@
 
 <div class="row px-xl-5 pb-3">
     <c:forEach items="${stores}" var="s">
-        <c:url value="/store/${s.id}" var="detail"/>
+        <c:url value="/stores/${s.id}" var="detail"/>
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
             <div class="card product-item border-0 mb-4">
                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -23,9 +23,12 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between bg-light border">
-                    <a href="${detail}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>                          </div>
+                    <a href="${detail}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i> Xem chi tiết</a>
+                    <c:url value='/api/stores/${s.id}/follow' var="followStore" />
+                    <a onclick="FollowStore('${followStore}')" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary"></i> Theo dõi</a>
+                </div>
             </div>
         </div>
-    </c:forEach>
-</div>
+        </c:forEach>
+    </div>
 

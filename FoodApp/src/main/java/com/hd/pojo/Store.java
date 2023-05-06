@@ -75,12 +75,12 @@ public class Store implements Serializable {
     @Size(min = 1, max = 120,  message = "{store.address.length}")
     @Column(name = "address")
     private String address;
+    @Basic(optional = false)
     @NotNull(message = "{store.sdt.null}")
-    @Size(max = 15, message="{store.sdt.length}")
+    @Size(min = 1, max = 15, message="{store.sdt.length}")
     @Column(name = "sdt")
     private String sdt;
-    @Basic(optional = false)
-    @Size(min = 1, max = 120)
+    @Size(max = 120)
     @Column(name = "image")
     private String image;
     @Column(name = "last_update")
@@ -99,6 +99,7 @@ public class Store implements Serializable {
     @OneToMany(mappedBy = "storeId")
     private Set<Menu> menuSet;
 
+    
     @Transient
     private MultipartFile file;
     public Store() {
@@ -108,11 +109,11 @@ public class Store implements Serializable {
         this.id = id;
     }
 
-    public Store(Integer id, String name, String address, String image) {
+    public Store(Integer id, String name, String address, String sdt) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.image = image;
+        this.sdt = sdt;
     }
 
     public Integer getId() {
