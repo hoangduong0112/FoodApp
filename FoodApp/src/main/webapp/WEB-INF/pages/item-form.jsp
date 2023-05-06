@@ -9,7 +9,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url value="/partner/my-store/item/save" var="action" />
 <form:form method="post" action="${action}" modelAttribute="item" enctype="multipart/form-data" >
-
+    <form:errors path="*" element="div" cssClass="alert alert-danger"/>
     <div class="mb-3">
         <label for="NameInput" class="form-label">Tên sản phẩm:</label>
         <form:input type="text" class="form-control" id="name" name="name" path="name" />

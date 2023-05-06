@@ -68,7 +68,7 @@ public class MenuRepositoryImpl implements MenuRepository {
             if (m.getId() != null) {
                 Menu menu = this.getMenuById(m.getId());
 
-                menu.setName(m.getName());
+                menu.setName(m.getName().trim());
 
                 s.save(menu);
             } else {

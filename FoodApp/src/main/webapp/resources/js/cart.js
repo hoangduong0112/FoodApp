@@ -25,14 +25,16 @@ function addToCart(endpoint, id, name, price) {
             "Content-Type": "application/json"
         }
     }).then(res => res.json()).then(data => {
-        console.info(data)
+
         let counters = document.getElementsByClassName("cart-counter");
         for (let d of counters)
             d.innerText = data.totalQuantity;
+        $('#successMessage').text('Thêm vào giỏ thành công')
+        $('#successModal').modal('show')
     });
 }
 
-function updateItem(endpoint, obj) {
+function updateItem(endpoint, obj) {    
     fetch(endpoint, {
         method: "put",
         body: JSON.stringify({
@@ -48,41 +50,43 @@ function updateItem(endpoint, obj) {
         let amounts = document.getElementsByClassName("cart-amount");
         for (let d of amounts)
             d.innerText = parseFloat(data.totalAmount).toLocaleString("en-US");
+        $('#successMessage').text('Cập nhật giỏ hàng thành công')
+        $('#successModal').modal('show')
     });
 }
 
 function deleteItem(endpoint, id) {
     $('#loader').show();
-    if (confirm("Bạn chắc chắn xóa không?") === true) {
-        fetch(endpoint, {
-            method: "delete"
-        }).then(res => res.json()).then(data => {
-            $('#loader').hide();
-            let el = document.getElementById(`cart${id}`);
-            el.style.display = "none";
 
-            let counters = document.getElementsByClassName("cart-counter");
-            for (let d of counters)
-                d.innerText = data.totalQuantity;
-            let amounts = document.getElementsByClassName("cart-amount");
-            for (let d of amounts)
-                d.innerText = parseFloat(data.totalAmount).toLocaleString("en-US");
-        });
-    }
+    fetch(endpoint, {
+        method: "delete"
+    }).then(res => res.json()).then(data => {
+        $('#loader').hide();
+        let el = document.getElementById(`cart${id}`);
+        el.style.display = "none";
+
+        let counters = document.getElementsByClassName("cart-counter");
+        for (let d of counters)
+            d.innerText = data.totalQuantity;
+        let amounts = document.getElementsByClassName("cart-amount");
+        for (let d of amounts)
+            d.innerText = parseFloat(data.totalAmount).toLocaleString("en-US");
+        $('#successMessage').text('Xóa khỏi giỏ hàng')
+        $('#successModal').modal('show')
+    });
 }
 function pay(endpoint) {
+    $('#spinner').show()
     fetch(endpoint, {
         method: "post"
     }).then(res => {
         console.info(res);
         if (res.status === 200) {
-
-            alert("Success");
-
             let counters = document.getElementsByClassName("cart-counter");
             for (let d of counters)
                 d.innerText = 0;
-             res.text().then(url => {
+            $('#spinner').hide()
+            res.text().then(url => {
                 window.location.href = url;
             });
         }

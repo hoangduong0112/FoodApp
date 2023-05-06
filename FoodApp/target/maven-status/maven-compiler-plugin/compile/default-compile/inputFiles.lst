@@ -57,7 +57,6 @@ D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\CategoryRepository.j
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\CommentsRepository.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\service\SecurityService.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\controllers\ApiStoreController.java
-D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\utils\FollowUtil.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\FollowRepository.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\repository\MenuRepository.java
 D:\FoodAppSpringMVC\FoodApp\src\main\java\com\hd\pojo\Comments.java

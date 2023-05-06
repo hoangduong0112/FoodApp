@@ -6,6 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ hàng</h1>        
+        </div>
+    </div>
 <c:url value="/api/cart/${c.id}" var="endpoint" />
 
 <c:if test="${carts != null}">  
@@ -48,7 +54,25 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">${c.price}</td>
-                                <td class="align-middle"><button onclick="deleteItem('${endpoint}', ${c.id})" class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
+                                <td class="align-middle"><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal${c.id}"><i class="fa fa-times"></i></button>
+                                    <div class="modal fade" id="deleteModal${c.id}" tabindex="-1" aria-labelledby="deleteModalLabel${c.id}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header  bg-warning">
+                                                    <h5 class="modal-title" id="deleteModalLabel${c.id}">Xác nhận xóa</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn có chắc là xóa khỏi giỏ hàng không ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" id="confirmDelete${c.id}" onclick="deleteItem('${endpoint}', ${c.id})" data-bs-dismiss="modal">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -80,7 +104,7 @@
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">${cartStats.totalAmount}</h5>
+                            <h5 class="font-weight-bold cart-amount">${cartStats.totalAmount}</h5>
                         </div>
                         <c:choose>
                             <c:when test="${pageContext.request.userPrincipal.name == null}">

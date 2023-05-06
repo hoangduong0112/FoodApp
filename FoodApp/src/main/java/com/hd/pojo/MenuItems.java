@@ -49,6 +49,7 @@ public class MenuItems implements Serializable {
     @Column(name = "name")
     private String name;
     @Column(name = "price")
+    @NotNull
     private Long price;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne

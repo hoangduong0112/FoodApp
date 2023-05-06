@@ -82,7 +82,6 @@ com\hd\service\impl\CategoryServiceImpl.class
 com\hd\repository\impl\OrderSaleRepositoryImpl.class
 com\hd\pojo\Menu.class
 com\hd\formatter\CategoryFormatter.class
-com\hd\utils\FollowUtil.class
 com\hd\configs\SpringSecurityConfig.class
 com\hd\repository\impl\CategoryRepositorImpl.class
 com\hd\repository\StoreRepository.class

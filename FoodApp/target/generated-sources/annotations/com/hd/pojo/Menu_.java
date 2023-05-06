@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-05-06T03:46:34")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-05-06T15:50:30")
 @StaticMetamodel(Menu.class)
 public class Menu_ { 
 

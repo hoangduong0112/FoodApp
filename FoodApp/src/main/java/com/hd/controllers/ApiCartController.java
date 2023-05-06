@@ -63,11 +63,11 @@ public class ApiCartController {
     }
 
     @PutMapping(path = "/cart/{itemId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, String>> updateItemCart(@PathVariable(value = "itemId") int id,
+    public ResponseEntity<Map<String, String>> updateItemCart(@PathVariable(value = "itemId") int itemId,
             @RequestBody Map<String, Integer> params, HttpSession session) {
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart != null && cart.containsKey(id)) {
-            Cart c = cart.get(id);
+        if (cart != null && cart.containsKey(itemId)) {
+            Cart c = cart.get(itemId);
             c.setQuantity(params.get("quantity"));
         }
 
@@ -77,10 +77,10 @@ public class ApiCartController {
     }
 
     @DeleteMapping(path = "/cart/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, String>> deleteItemCart(@PathVariable(value = "itemId") int id, HttpSession session) {
+    public ResponseEntity<Map<String, String>> deleteItemCart(@PathVariable(value = "itemId") int itemId, HttpSession session) {
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart != null && cart.containsKey(id)) {
-            cart.remove(id);
+        if (cart != null && cart.containsKey(itemId)) {
+            cart.remove(itemId);
         }
 
         session.setAttribute("cart", cart);

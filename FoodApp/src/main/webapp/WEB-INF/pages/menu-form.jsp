@@ -9,8 +9,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:url value="/partner/my-store/menu/save" var="action"/>
-<form:form method="post" action="${action}" modelAttribute="menu"  accept-charset="UTF-8" enctype="multipart/form-data">
-     <form:errors path="*" element="div" cssClass="alert alert-danger"/>
+<form:form method="post" action="${action}" modelAttribute="menu" enctype="multipart/form-data">
+    <form:errors path="*" element="div" cssClass="alert alert-danger"/>
     <div class="mb-3">
         <label for="NameInput" class="form-label">Tên menu:</label>
         <form:input type="text" class="form-control" id="name" name="name" path="name" />

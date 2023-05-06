@@ -43,7 +43,7 @@ public class ApiFollowController {
         Store store = this.storeService.getStoreById(storeId);
 
         if (this.followService.isFollowing(user, store)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
         Follows follow = new Follows();
@@ -55,4 +55,25 @@ public class ApiFollowController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+    
+     @PostMapping(path = "/stores/{storeId}/unfollow", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> unfollowStore(@PathVariable(value = "storeId") int storeId, Principal principal) {
+        
+        User user = this.userService.getUserByUsername(principal.getName());
+        Store store = this.storeService.getStoreById(storeId);
+
+        if (!this.followService.isFollowing(user, store)) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        Follows follow = new Follows();
+        follow.setStoreId(store);
+        follow.setUserId(user);
+        if (this.followService.unfollowStore(follow)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+    
 }

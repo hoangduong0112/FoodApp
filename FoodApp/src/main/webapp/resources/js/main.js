@@ -16,18 +16,20 @@ function FollowStore(endpoint) {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        $('#spinner').hide();
-        if (response.status === 200) {
-            alert("You are now following this store.");
-        } else if (response.status === 409) {
-            alert("You are already following this store.");
-        } else {
-            throw new Error('Error following store.');
-        }
-    })
-    .catch(error => {
-        alert("Error following store.");
-        console.error(error);
-    });
+            .then(response => {
+                $('#spinner').hide();
+                if (response.status === 200) {
+                    $('#successMessage').text('Theo dõi thành công')
+                    $('#successModal').modal('show')
+                } else if (response.status === 204) {
+                    $('#warningMessage').text('Bạn đã theo dõi cửa hàng này rồi')
+                    $('#warningModal').modal('show')
+                } else {
+                    throw new Error('Error following store.');
+                }
+            })
+            .catch(error => {
+                $('#failureMessage').text('Theo dõi thất bại, có lỗi xảy ra')
+                $('#failureModal').modal('show')
+            });
 }

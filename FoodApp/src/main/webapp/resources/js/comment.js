@@ -15,17 +15,19 @@ function loadComments(endpoint) {
         let msg = "";
         for (let c of data) {
             msg += `
-              <div class="row bg-light m-1">
-                    <div class="col-md-1 col-xs-3">
-                        <h5>${c.userId.hoten}</h5>
+               <div class="row bg-light p-3 mb-3 rounded">
+                    <div class="col-md-2 col-sm-3 col-4">
+                        <img src="${c.userId.avatarUrl}" class="img-fluid rounded-circle">
                     </div>
-                    <div class="col-md-10 col-xs-9">
+                    <div class="col-md-10 col-sm-9 col-8">
+                        <h6 class="mb-2">${c.userId.hoten}</h6>
                         <p>${c.content}</p>
-                        <small>
-                            Binh luan boi <a href="#">${c.userId.username}</a> luc ${moment(c.createdDate).locale("vi").fromNow()}
+                        <small class="text-muted">
+                            Bình luận bởi <a href="#" class="text-dark">${c.userId.username}</a> vào ${moment(c.createdDate).locale("vi").format("D MMMM YYYY [lúc] h:mm A")}
                         </small>
                     </div>
                 </div>
+
             `
         }
 
@@ -48,17 +50,41 @@ function addComment(endpoint) {
         showSpinner("none")
         let d = document.getElementById("comments");
         d.innerHTML = `
-              <div class="row bg-light m-1">
-                    <div class="col-md-1 col-xs-3">
-                        <h5>${c.userId.hoten}</h5>
+               <div class="row bg-light p-3 mb-3 rounded">
+                    <div class="col-md-2 col-sm-3 col-4">
+                        <img src="${c.userId.avatarUrl}" class="img-fluid rounded-circle">
                     </div>
-                    <div class="col-md-10 col-xs-9">
+                    <div class="col-md-10 col-sm-9 col-8">
+                        <h6 class="mb-2">${c.userId.hoten}</h6>
                         <p>${c.content}</p>
-                        <small>
-                            Binh luan boi <a href="#">${c.userId.username}</a> luc ${moment(c.createdDate).locale("vi").fromNow()}
+                        <small class="text-muted">
+                            Bình luận bởi <a href="#" class="text-dark">${c.userId.username}</a> vào ${moment(c.createdDate).locale("vi").format("D MMMM YYYY [lúc] h:mm A")}
                         </small>
                     </div>
                 </div>
             ` + d.innerHTML;
     });
 }
+
+
+moment.updateLocale('vi', {
+    relativeTime: {
+        future: "trong %s",
+        past: "%s trước",
+        s: 'vài giây',
+        ss: '%d giây',
+        m: "một phút",
+        mm: "%d phút",
+        h: "một giờ",
+        hh: "%d giờ",
+        d: "một ngày",
+        dd: "%d ngày",
+        w: "một tuần",
+        ww: "%d tuần",
+        M: "một tháng",
+        MM: "%d tháng",
+        y: "một năm",
+        yy: "%d năm"
+    }
+});
+moment.locale('vi');

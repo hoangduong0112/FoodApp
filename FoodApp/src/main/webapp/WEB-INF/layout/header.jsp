@@ -78,7 +78,7 @@
 <!-- Navbar Start -->
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
-        <div class="col-lg-3 d-none d-lg-block mx-auto my-2">
+        <div class="col-lg-3 d-none d-lg-block mx-auto my-3">
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal.name == null}">
                     <a href="#" class="nav-item nav-link text-danger">Trở thành đối tác</a>
@@ -123,13 +123,77 @@
                                     <img class="rounded-circle me-lg-2" src="${pageContext.session.getAttribute("currentUser").avatar}" alt="" style="width: 40px; height: 40px;">
                                     <span class="d-none d-lg-inline-flex">${pageContext.session.getAttribute("currentUser").hoten}</span>
                                 </a>
-                                <a href="<c:url value="/logout" />" class="nav-item nav-link">Log out</a>
+                                <a href="<c:url value="/logout" />" class="nav-item nav-link my-2">Log out</a>
                             </c:when>
                         </c:choose>                   
                     </div>
                 </div>
             </nav>
 
+        </div>
+    </div>
+</div>
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">Thành công</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <i class="fas fa-check-circle me-3 fs-3 text-success"></i>
+                    <p class="m-0" id="successMessage"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="failureModal" tabindex="-1" aria-labelledby="failureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="failureModalLabel">Thất bại</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <i class="fas fa-check-circle me-3 fs-3 text-danger"></i>
+                    <p class="m-0" id="failureMessage"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title" id="warningModalLabel">Cảnh báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <i class="fas fa-check-circle me-3 fs-3 text-warning"></i>
+                    <p class="m-0" id="warningMessage"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">OK</button>
+            </div>
         </div>
     </div>
 </div>

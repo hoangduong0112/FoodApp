@@ -95,7 +95,7 @@ public class PartnerController {
     }
 
     @RequestMapping("/my-store/menu/save")
-    public String addOrUpdateMenu(Model model, @ModelAttribute(value = "menu") @Valid Menu m, Principal p, BindingResult rs) {
+    public String addOrUpdateMenu(Model model, Principal p, @ModelAttribute(value = "menu") @Valid Menu m, BindingResult rs) {
         if (rs.hasErrors()) {
             return "menu-form";
         }
@@ -123,7 +123,7 @@ public class PartnerController {
     }
 
     @RequestMapping("/my-store/item/save")
-    public String addOrUpdateItem(Model model, @ModelAttribute(value = "item") @Valid MenuItems m, Principal p, BindingResult rs) {
+    public String addOrUpdateItem(Model model, Principal p, @ModelAttribute(value = "item") @Valid MenuItems m, BindingResult rs) {
         if (rs.hasErrors()) {
             return "item-form";
         }

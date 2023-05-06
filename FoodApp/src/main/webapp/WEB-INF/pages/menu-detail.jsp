@@ -73,21 +73,39 @@
     </div>
 </div>
 <hr />
-<c:url value="/api/stores/${store.id}/comments" var="addcomment" />
-<sec:authorize access="isAuthenticated()">
-    <div>
-        <textarea class="form-control" rows="5" id="comment-content" name="content"></textarea>
-        <input type="button" value="Them binh luan" onclick="addComment('${addcomment}')" class="btn btn-danger m-1" />
+<div class="container">
+    <c:url value="/api/stores/${store.id}/comments" var="addcomment" />
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-8">
+            <h3 class="mb-3">Bình luận</h3>
+
+            <sec:authorize access="isAuthenticated()">
+                <div class="mb-3">
+                    <textarea class="form-control" rows="5" id="comment-content" name="content"></textarea>
+                    <input type="button" value="Thêm bình luận" onclick="addComment('${addcomment}')" class="btn btn-danger mt-2" />
+                </div>
+            </sec:authorize>
+
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-primary LoadCommentSpinner" style="display:none"></div>
+            </div>
+
+            <hr>
+
+            <div id="comments">
+                <h5 class="mb-3">Các bình luận</h5>
+
+               
+                <!-- More comments here -->
+            </div>
+        </div>
     </div>
-</sec:authorize>
-    <div class="spinner-grow text-primary LoadCommentSpinner" style="display:none"></div>
-<div id="comments">
-
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 <script src="<c:url value="/js/comment.js" />"></script>
+<script src="<c:url value="/js/cart.js" />"></script>
 <script>
             window.onload = function () {
                 loadComments('${addcomment}');

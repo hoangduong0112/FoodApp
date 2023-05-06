@@ -22,9 +22,11 @@ function deleteStore(endpoint, id) {
                 $('#spinner').hide();
                 if (response.status === 204) {
                     document.getElementById(`store${id}`).style.display = "none";
-                    alert("Xóa thành công")
+                    $('#successMessage').text('Xóa thành công')
+                    $('#successModal').modal('show')
                 } else {
-                    alert("Xóa thất bại")
+                    $('#failureMessage').text('Xóa thất bại')
+                    $('#failureModal').modal('show')
                 }
             });
 }
@@ -37,16 +39,18 @@ function deleteMenu(endpoint, id) {
                 $('#spinner').hide();
                 if (response.status === 204) {
                     document.getElementById(`menu${id}`).style.display = "none";
-                    alert("Xóa thành công")
-                    spinner();
+                    $('#successMessage').text('Xóa thành công')
+                    $('#successModal').modal('show')
 
                 } else {
-                    alert("Xóa thất bại do Menu vẫn còn sản phẩm");
+                    $('#failureMessage').text('Xóa thất bại')
+                    $('#failureModal').modal('show')
                 }
             })
             .catch(error => {
                 if (error.response && error.response.status === 400) {
-                    alert(error.response.data.message);
+                    $('#failureMessage').text('Xóa thất bại')
+                    $('#failureModal').modal('show')
                 }
             });
 }
@@ -60,10 +64,12 @@ function deleteMenuItem(endpoint, id) {
                 $('#spinner').hide();
                 if (response.status === 204) {
                     document.getElementById(`item${id}`).style.display = "none";
-                    alert("Xóa thành công")
+                    $('#successMessage').text('Xóa thành công')
+                    $('#successModal').modal('show')
 
                 } else {
-                    alert("Xóa thất bại")
+                    $('#failureMessage').text('Xóa thất bại')
+                    $('#failureModal').modal('show')
                 }
             });
 }

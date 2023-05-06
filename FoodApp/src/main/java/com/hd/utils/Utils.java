@@ -5,7 +5,6 @@
 package com.hd.utils;
 
 import com.hd.pojo.Cart;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +16,12 @@ public class Utils {
 
     public static Map<String, String> cartStats(Map<Integer, Cart> cart) {
         int totalQuantity = 0;
-        BigDecimal totalAmount = BigDecimal.ZERO;
+        Long totalAmount = 0l;
 
         if(cart != null){
             for( Cart c: cart.values()){
                 totalQuantity += c.getQuantity();
-                totalAmount = totalAmount.add(c.getPrice().multiply(BigDecimal.valueOf(c.getQuantity())));
+                totalAmount += c.getQuantity() * c.getPrice();
             }
         }
         HashMap<String, String> re = new HashMap<>();

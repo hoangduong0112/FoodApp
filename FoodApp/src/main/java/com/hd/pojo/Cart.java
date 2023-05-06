@@ -13,13 +13,13 @@ import java.math.BigDecimal;
 public class Cart {
     private int id;
     private String name;
-    private BigDecimal price;
+    private Long price;
     private int quantity;
 
     public Cart() {
     }
 
-    public Cart(int id, String name, BigDecimal price, int quantity) {
+    public Cart(int id, String name, Long price, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -57,14 +57,14 @@ public class Cart {
     /**
      * @return the price
      */
-    public BigDecimal getPrice() {
+    public Long getPrice() {
         return price;
     }
 
     /**
      * @param price the price to set
      */
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
